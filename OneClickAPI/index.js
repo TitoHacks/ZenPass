@@ -3,8 +3,10 @@ const app = express();
 const mongoose = require("mongoose");
 const PORT = 8083;
 const userRoutes = require("./routes/users");
+const entryRoutes = require("./routes/entries");
 app.use(express.json());
 app.use("/api",userRoutes)
+app.use("/api/entry",entryRoutes)
 
 //CONNECT TO MONGO DB
 mongoose.set("strictQuery",false)

@@ -55,6 +55,7 @@ function Login() {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true);
     let userObj = {
       email:values.email,
       password:values.password
@@ -68,18 +69,26 @@ function Login() {
     }).then( async response => {
       
       if(response.status == 200){
-         let dataJson = await response.json();
-         storeDerivateKey(userObj.password,'hola',100000);
-         sessionStorage.setItem("PassnovaUID",dataJson["_id"]);
-         toast("Welcome " + dataJson["username"]);
+        
+        let dataJson = await response.json();
+         
+        storeDerivateKey(userObj.password,'hola',100000).then(result =>{
+          sessionStorage.setItem("PassnovaUID",dataJson["_id"]);
+          sessionStorage.setItem("username",dataJson["username"]);
+          toast("Welcome " + dataJson["username"]);
+  
           setTimeout(function(){
             setLoading(false);
             window.location.href = "/dashboard";
-          },3000)
-         
+          },500)
+        }).catch(error=>{
+          toast(error);
+        })
+       
+
       }else{
         toast(await response.text());
-        console.log("Error al loguearse");
+        setLoading(false);
       }
     });
   }
@@ -124,7 +133,7 @@ function Login() {
                         
                       )}
                     />
-                    <Button type="submit" onClick={()=>setLoading(true)}>Login</Button>
+                    <Button type="submit">Login</Button>
                   </form>
                 </Form>
               </div>
