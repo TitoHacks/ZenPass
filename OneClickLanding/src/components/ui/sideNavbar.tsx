@@ -1,6 +1,8 @@
 import React from 'react'
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, User} from "@nextui-org/react";
 import { logout } from '@/utils/utils';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faHouse, faLock, faVault} from "@fortawesome/free-solid-svg-icons";
 
 
 
@@ -17,9 +19,9 @@ const SideNavbar = () => {
       <ul className='flex flex-col justify-evenly items-start h-full'>
       
         <li><a href=""><img src=""></img></a></li>
-        <li><a href="" className='text-white'>Home</a></li>
-        <li><a href="" className='text-white'>Passwords</a></li>
-        <li><a href="" className='text-white'>Secure Vault</a></li>
+        <li><a href="" className='text-white'><FontAwesomeIcon icon={faHouse} /> Home</a></li>
+        <li><a href="" className='text-white'><FontAwesomeIcon icon={faLock} /> Passwords</a></li>
+        <li><a href="" className='text-white'><FontAwesomeIcon icon={faVault} /> Secure Vault</a></li>
         <li>
           <Dropdown placement="bottom-start">
             <DropdownTrigger>

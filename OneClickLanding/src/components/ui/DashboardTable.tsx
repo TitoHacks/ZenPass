@@ -44,10 +44,9 @@ function DashboardTable() {
     switch (columnKey) {
       case "status":
         return (
-          <Chip className="capitalize" color={statusColorMap[entry.status]} size="sm" variant="flat">
+            <Chip className="capitalize" color={statusColorMap[entry.status]} size="sm" variant="flat">
             {cellValue}
-          </Chip>
-          
+            </Chip>         
         );
       default:
         return cellValue;
@@ -81,7 +80,7 @@ function DashboardTable() {
         <TableHeader>
             <TableColumn className="w-[100px] text-secondaryColor" key="title">Title</TableColumn>
             <TableColumn className='text-secondaryColor' key="username">Username</TableColumn>
-            <TableColumn className='text-secondaryColor' key="password">Password</TableColumn>
+            <TableColumn className='text-secondaryColor' key="url">Site</TableColumn>
             <TableColumn className="text-right text-secondaryColor" key="status">Status</TableColumn>
         </TableHeader>
         <TableBody items={items}>
