@@ -82,6 +82,21 @@ export function generateStatus(encryptedPassword:string, passwordStatus:string):
 }
 
 
+export async function deleteEntry(entryId:string):Promise<string>{
+    let message = await fetch("/api/entry/deleteEntry",{
+        method:"POST",
+        headers: {
+          'content-type': 'application/json;charset=UTF-8',
+        },
+        body:JSON.stringify({passwordId: entryId})
+      }).then(response => response.text()).then(data=>{
+        return data;
+      })
+    return message;
+}
+
+
+
 export async function storeEntry(values:any){
 
     let encryptedPassword = encrypt(values["password"]);
@@ -162,4 +177,64 @@ export function decrypt(value:any, ivKey:any):string{
         decipher.update(forge.util.createBuffer(forge.util.hexToBytes(value)));
         decipher.finish();
         return decipher.output.data;
+}
+
+
+export function getStatusCount(passwordEntries:any[]):Object{
+    let safePasswordCount = 0;
+    let weakPasswordCount = 0;
+    let reusedPasswordCount = 0;
+    let leakedPasswordCount = 0;
+    passwordEntries.forEach((entry)=>{
+        switch(entry["status"][0]){
+          case 'safe':
+            safePasswordCount++;
+            break;
+          case 'weak':
+            weakPasswordCount++;
+            break;
+          case 'reused':
+            reusedPasswordCount++;
+            break;
+          case 'leaked':
+            leakedPasswordCount++;
+            break;
+          default:
+            safePasswordCount++;
+            break;
+    
+        }
+      })
+    
+      let totalCount = safePasswordCount + weakPasswordCount + reusedPasswordCount + leakedPasswordCount;
+      let safePorcent = (safePasswordCount*100)/totalCount;
+      if(isNaN(safePorcent)){
+        safePorcent = 0;
+      }
+      let weakPorcent = (weakPasswordCount*100)/totalCount;
+      if(isNaN(weakPorcent)){
+        weakPorcent = 0;
+      }
+      let reusedPorcent = (reusedPasswordCount*100)/totalCount;
+      if(isNaN(reusedPorcent)){
+        reusedPorcent = 0;
+      }
+      let leakedPorcent = (leakedPasswordCount*100)/totalCount;
+      if(isNaN(leakedPorcent)){
+        leakedPorcent = 0;
+      }
+    let dataObj = {
+        safeCount: safePasswordCount,
+        safePorcent: safePorcent,
+        weakCount: weakPasswordCount,
+        weakPorcent:weakPorcent,
+        reusedCount: reusedPasswordCount,
+        reusedPorcent:reusedPorcent,
+        leakedCount: leakedPasswordCount,
+        leakedPorcent:leakedPorcent,
+    }
+
+    return dataObj;
+
+
 }

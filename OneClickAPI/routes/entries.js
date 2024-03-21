@@ -31,5 +31,18 @@ router.get("/isReused", async(request,response)=>{
 })
 
 
+router.post("/deleteEntry",async(request,response)=>{
+    try{
+        let entryId = request.body.passwordId;
+        await Entry.deleteOne({_id:entryId});
+        response.status(200).send("Credencial eliminada correctamente");
+    }catch(error){
+        response.status(500).send("No se ha podido eliminar la credencial: " + error);
+    }
+    
+
+})
+
+
 
 module.exports = router;
