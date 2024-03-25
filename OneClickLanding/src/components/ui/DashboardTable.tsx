@@ -115,7 +115,7 @@ function DashboardTable(props:any) {
         <TableBody items={items} emptyContent={<p>Add your first credential by pressing the "+" button on the bottom right</p>} >
         {(item) => (
           
-          <TableRow key={item.title} className='transition-all ease-in-out duration-150 delay-50 hover:bg-backgroundColorDark cursor-pointer' onClick={function(){setPasswordItem(item);setDetail(true);}}>
+          <TableRow key={item._id} className='transition-all ease-in-out duration-150 delay-50 hover:bg-backgroundColorDark cursor-pointer' onClick={function(){setPasswordItem(item);setDetail(true);}}>
             {(columnKey) => 
             
               <TableCell className='text-white'> 

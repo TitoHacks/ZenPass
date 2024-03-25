@@ -1,3 +1,4 @@
+import { Button } from '@nextui-org/react';
 import React from 'react'
 
 
@@ -22,9 +23,13 @@ const HeaderContent = () => {
           <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">ZenPass</h1>
           <p className="mt-6 text-lg leading-8 text-gray-300">Tu gestor de contraseñas</p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
-            
-          <button onClick={tremendaFuncion} className="inline-flex h-12 animate-shimmer items-center justify-center rounded-lg border border-slate-800 bg-[linear-gradient(110deg,#000103,45%,#1e2631,55%,#000103)] bg-[length:200%_100%] px-6 font-medium text-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+  
+      
+          <button className="p-[3px] relative" onClick={tremendaFuncion}>
+            <div className="absolute inset-0 bg-gradient-to-r from-secondaryColor to-accentColor rounded-xl" />
+            <div className="px-8 py-2  bg-black rounded-[10px]  relative group transition duration-200 text-white hover:bg-transparent">
               Dashboard
+            </div>
           </button>
 
         

@@ -64,18 +64,18 @@ function Register() {
   return (
     <>
         <CustomNavbar></CustomNavbar>
-        <WavyBackground className="max-w-4xl mx-auto pb-40 flex flex-row" colors={["#1D226C","#00D7A1","#0D0522"]} waveOpacity={0.6} blur={20}>
+        <WavyBackground className="max-w-4xl mx-auto pb-40 flex flex-row dark" colors={["#f9769d","#171821","#21222d"]} waveOpacity={0.6} blur={20}>
             
               <div className='w-screen flex flex-row justify-evenly rounded-lg items-center'>
                 <Form {...registerForm}>
                   
-                  <form onSubmit={registerForm.handleSubmit(onSubmit)} className="space-y-8 p-8 backdrop-blur-lg bg-white rounded-lg w-6/12 ">
+                  <form onSubmit={registerForm.handleSubmit(onSubmit)} className="space-y-8 p-8 backdrop-blur-lg rounded-lg w-6/12 ">
                   <FormField
                       control={registerForm.control}
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Email</FormLabel>
+                          <FormLabel className="text-white">Email</FormLabel>
                           <FormControl>
                             <Input placeholder="Email" type="email" {...field} />
                           </FormControl>
@@ -89,7 +89,7 @@ function Register() {
                       name="username"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Username</FormLabel>
+                          <FormLabel className="text-white">Username</FormLabel>
                           <FormControl>
                             <Input placeholder="Username" {...field} />
                           </FormControl>
@@ -103,7 +103,7 @@ function Register() {
                       name="password"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Password</FormLabel>
+                          <FormLabel className="text-white">Password</FormLabel>
                           <FormControl>
                             <Input placeholder="Password" type="password" {...field} />
                           </FormControl>

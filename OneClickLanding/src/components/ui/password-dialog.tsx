@@ -144,8 +144,7 @@ function PasswordDialog(){
                         <Button color="danger" variant="light" onPress={onClose}>
                             Cancelar
                         </Button>
-                        //TODO: HACER QUE SE CIERRE EL FUCKIN FORMULARIO AL GUARDAR ENTRY
-                        <Button color="primary" onPress={function(){while(loading){}onClose();}} type="submit" isLoading={loading} >
+                        <Button color="primary" type="submit" isLoading={loading} >
                             Añadir
                         </Button>
                     </div>
