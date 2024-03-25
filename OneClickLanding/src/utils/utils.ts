@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import forge from 'node-forge';
 import { passwordStrength } from 'check-password-strength'
-
+import getRootDomain from 'get-root-domain';
 const ivKey = forge.random.getBytesSync(16);
 
 export function hashPassword(password:string):string{
@@ -48,33 +48,40 @@ export function getPasswordScore(password:string):string{
 }
 
 
-export function generateStatus(encryptedPassword:string, passwordStatus:string):any[]{
+export async function generateStatus(entry:Object,encryptedPassword:string, passwordStatus:string):any[]{
 
     let estados:any[] = [];
     //Mirar si es contraseña reutilizada;
-    fetch("/api/entry/isReused?=" + encryptedPassword ,{
+    /*fetch("/api/entry/isReused?=" + encryptedPassword ,{
         method:"GET"
     }).then(response => response.json()).then(data=>{
         if(data["reused"]){
             estados.push("reused");
         }
-    })
-
-    if(passwordStatus == "Weak" || passwordStatus == "Too weak"){
-        estados.push("weak");
-    }
-
-
-
+    })*/
 
     //Mirar si la contraseña esta filtrada
+
+    let leaks = await checkLeaked(entry);
+    if(leaks.length > 0 ){
+      estados[0] = "leaked";
+    }else if(passwordStatus == "Weak" || passwordStatus == "Too weak"){
+      estados[0] = "weak";
+    } 
 
 
     
 
 
+
+
+
+   
+    
+
+
     if(estados.length == 0){
-        estados.push("safe");
+        estados[0] = "safe";
     }
 
     return estados;
@@ -98,10 +105,19 @@ export async function deleteEntry(entryId:string):Promise<string>{
 
 
 export async function storeEntry(values:any){
-
+    console.log("Saving entry...");
     let encryptedPassword = encrypt(values["password"]);
     let passwordScore = getPasswordScore(values["password"])
-    let estados = await generateStatus(encryptedPassword,passwordScore);
+    let estados = await generateStatus(values,encryptedPassword,passwordScore);
+    let leakInfo = [];
+    if(estados.includes("leaked")){
+      let leak = await checkLeaked(values);
+      if(leak.length > 0){
+        leakInfo = await getLeakedInfo(leak[0]["Name"]);
+        console.log(leakInfo);
+      }
+    }
+
     let encryptedEntry = {
         title: encrypt(values["title"]),
         username:encrypt(values["username"]),
@@ -112,6 +128,7 @@ export async function storeEntry(values:any){
         ownerId:sessionStorage.getItem("PassnovaUID"),
         isWeb:values["isWeb"],
         iv:forge.util.bytesToHex(ivKey),
+        leakInfo: leakInfo,
     }
 
     fetch("/api/entry/newEntry",{
@@ -121,9 +138,126 @@ export async function storeEntry(values:any){
         },
         body:JSON.stringify(encryptedEntry)
       })
+      console.log("Entry saved!");
 
 
 }
+
+export function getFavIcon(url:string, size:number):string{
+  let favicon = "public/defaultIcon.png";
+  if(url.includes("https") || url.includes("http")){
+    let rootDomain = getRootDomain(url)
+    try{
+      return "https://www.google.com/s2/favicons?domain="+rootDomain + "&sz=" + size;
+    }catch(error){
+      favicon = "public/defaultIcon.png";
+    }
+    
+  }
+  return favicon;
+
+}
+
+
+export async function updateEntry(entry:Object){
+  let encryptedPassword = encrypt(entry.password);
+  let passwordScore = getPasswordScore(entry.password)
+  console.log("Id:" + entry._id);
+  let encryptedEntry = {
+      _id:entry._id,
+      title: encrypt(entry.title),
+      username:encrypt(entry.username),
+      password:encryptedPassword,
+      url:encrypt(entry.url),
+      score:passwordScore,
+      status:entry.status,
+      ownerId:sessionStorage.getItem("PassnovaUID"),
+      isWeb:entry.isWeb,
+      iv:forge.util.bytesToHex(ivKey),
+      leakInfo: entry.leakInfo,
+  }
+
+  fetch("/api/entry/updateEntry",{
+      method:"POST",
+      headers: {
+        'content-type': 'application/json;charset=UTF-8',
+      },
+      body:JSON.stringify(encryptedEntry)
+    })
+}
+
+
+
+export async function checkLeaked(entry:any):Promise<any>{
+  let retryCount = 0;
+  while(retryCount < 3){
+    let leaks = await fetch("/api/entry/checkLeak?email=" + entry.username + "&domain="+getRootDomain(entry.url) + "&timestamp=" + new Date().getTime());
+    console.log(leaks);
+    if(leaks.status == 200){
+      return await leaks.json();
+    }else if(leaks.status == 300){
+      return {};
+    }else if(leaks.status == 301){
+      let data = await leaks.json();
+      console.log("Retrying after " + (data["retry"] + 2) + "seconds");
+      await new Promise(resolve => setTimeout(resolve,(data["retry"] + 10) * 1000));
+      retryCount++;
+    }
+  }
+
+ 
+
+  return {}
+
+}
+
+export async function getLeakedInfo(breachName:string):Promise<any>{
+  let leakInfo = await fetch("/api/entry/leakDetails?name=" + breachName);
+    if(leakInfo.status == 200){
+      let leakInfoJson = await leakInfo.json();
+      return leakInfoJson;
+    }
+    return {};
+}
+
+
+export async function checkExistingLeaked(entry:Object){
+
+  let leaks = await checkLeaked(entry);
+  if(leaks.length > 0){
+    //Actualizar entry y cambiar estado a leaked
+    if(entry.status[0] != "leaked"){
+      entry.status[0] = "leaked";
+      entry.leakInfo =  await getLeakedInfo(leaks[0]["Name"]);
+      updateEntry(entry);
+    }
+    ////////////////////////////////////////////
+
+  }
+
+}
+
+
+export function getScorePoints(score:string):number{
+  let scorePoints = 25;
+  switch(score){
+    case 'Weak':
+      scorePoints = 50;
+      break;
+    case 'Medium':
+      scorePoints = 75;
+      break;
+    case 'Strong':
+      scorePoints = 100;
+      break;
+    default:
+      scorePoints = 25;
+      break;
+
+  }
+  return scorePoints;
+}
+
 
 
 export async function getEntries():Promise<any[]>{
@@ -133,24 +267,31 @@ export async function getEntries():Promise<any[]>{
     await fetch("/api/entry/getEntries?passnovaUID=" + sessionStorage.getItem("PassnovaUID"),{
         method:"get",
 
-      }).then(response => response.json()).then(data=>{
-        for(let i = 0; i < data.length; i++){
-            let iv = data[i]["iv"];
-            let originalIV = forge.util.hexToBytes(iv);
-            let entryObj = {
-                _id: data[i]["_id"],
-                __v: data[i]["__v"],
-                title: decrypt(data[i]["title"],originalIV),
-                username: decrypt(data[i]["username"],originalIV),
-                password: decrypt(data[i]["password"],originalIV),
-                url: decrypt(data[i]["url"],originalIV),
-                score: data[i]["score"],
-                isWeb: data[i]["isWeb"],
-                status: data[i]["status"],
-                iv:iv,
-            }
-            decryptedEntries.push(entryObj);
-        }
+      }).then(response => response.json()).then(async data=>{
+        const promises = data.map((entry:any) =>{
+          let iv = entry["iv"];
+          let originalIV = forge.util.hexToBytes(iv);
+          let decryptedUrl = decrypt(entry["url"],originalIV);
+          let favicon = getFavIcon(decryptedUrl,48);
+          let entryObj = {
+              _id: entry["_id"],
+              __v: entry["__v"],
+              title: decrypt(entry["title"],originalIV),
+              username: decrypt(entry["username"],originalIV),
+              password: decrypt(entry["password"],originalIV),
+              url: decryptedUrl,
+              score: entry["score"],
+              scorePoints: getScorePoints(entry["score"]),
+              isWeb: entry["isWeb"],
+              status: entry["status"],
+              favicon: favicon,
+              iv:iv,
+              leakInfo: entry["leakInfo"],
+          }
+          decryptedEntries.push(entryObj);
+        })
+
+            
         
       })
 

@@ -36,7 +36,10 @@ const entrySchema = new mongoose.Schema({
     iv:{
         type:String,
         required:[true,"Por favor, inserta el IV de la entrada"]
-    }
+    },
+    leakInfo:{
+        type:Object
+    },
 })
 
 

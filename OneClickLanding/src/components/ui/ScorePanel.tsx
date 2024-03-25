@@ -19,7 +19,11 @@ function calculateScore(statusData:Object):number{
   if(isNaN(overallScore)){
     overallScore = 100;
   }
-  return Math.floor(overallScore);
+  if(overallScore >= 0){
+    return Math.floor(overallScore);
+  }
+  return 0;
+  
 
 }
 

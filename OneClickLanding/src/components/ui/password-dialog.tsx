@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import {Dropdown, Link, DropdownTrigger, DropdownMenu, DropdownItem} from "@nextui-org/react";
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -10,6 +9,9 @@ import { storeEntry } from '@/utils/utils';
 import { Input } from "@/components/ui/input"
 import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
 function PasswordDialog(){
+
+  const [loading,setLoading] = useState(false);
+
     const formSchema = z.object({
         title: z.string().min(3, {
             message: "Title must be at least 3 characters.",
@@ -38,8 +40,8 @@ function PasswordDialog(){
         }
       })
 
-      function onSubmit(values: z.infer<typeof formSchema>) {
-
+      async function onSubmit(values: z.infer<typeof formSchema>) {
+        setLoading(true);
 
         let passwordObj = {
           title:values.title,
@@ -48,9 +50,9 @@ function PasswordDialog(){
           url:values.url,
           isWeb: values.isWeb,
         }
-
-        storeEntry(passwordObj);
-
+        
+        await storeEntry(passwordObj);
+        setLoading(false);
         
            
     
@@ -142,7 +144,8 @@ function PasswordDialog(){
                         <Button color="danger" variant="light" onPress={onClose}>
                             Cancelar
                         </Button>
-                        <Button color="primary" type="submit" onPress={onClose}>
+                        //TODO: HACER QUE SE CIERRE EL FUCKIN FORMULARIO AL GUARDAR ENTRY
+                        <Button color="primary" onPress={function(){while(loading){}onClose();}} type="submit" isLoading={loading} >
                             Añadir
                         </Button>
                     </div>
