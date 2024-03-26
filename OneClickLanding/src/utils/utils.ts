@@ -130,10 +130,11 @@ export async function storeEntry(values:any){
 
 }
 
-export async function importPasswords(data:any, fileInfo:any, originalFile:any){
+export async function importPasswords(data:any, fileInfo:any, originalFile:any, setLoadValue:any, onClose:any){
 
   console.log(data);
   let csvKeys = Object.keys(data);
+
   for(let i = 0; i < csvKeys.length; i++){
     let currentPassword = data[csvKeys[i]];
     let entryObj = {
@@ -145,7 +146,10 @@ export async function importPasswords(data:any, fileInfo:any, originalFile:any){
       isWeb:"true",
     }
    await storeEntry(entryObj);
+   setLoadValue((i+1) * 100 / csvKeys.length);
   }
+  onClose();
+  toast.success("Contraseñas importadas correctamente");
   
 }
 

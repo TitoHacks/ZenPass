@@ -43,6 +43,7 @@ function DashboardTable(props:any) {
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 6;
   const pages = Math.ceil(tableRows.length / rowsPerPage);
+  console.log(pages);
   const items:Entry = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;

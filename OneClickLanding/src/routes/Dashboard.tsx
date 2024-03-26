@@ -31,7 +31,7 @@ function Dashboard() {
       setPasswordEntries(entries);
     }
     fetchData();
-  },[open,deleted]);
+  },[open,deleted,openCsv]);
 
 
   
