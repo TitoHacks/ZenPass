@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {Form,FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { storeEntry } from '@/utils/utils';
 import { Input } from "@/components/ui/input"
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
+import {ModalContent, ModalHeader, ModalBody,Button} from "@nextui-org/react";
+import { toast } from 'sonner'
 function PasswordDialog(){
 
   const [loading,setLoading] = useState(false);
@@ -19,7 +19,7 @@ function PasswordDialog(){
         username: z.string().min(1, {
           message: "Username must be at least 1 characters.",
         }),
-        password: z.string().min(8,{
+        password: z.string().min(3,{
           message: "Password must be at least 3 characters.",
         }),
         url: z.string().min(3,{
@@ -40,9 +40,8 @@ function PasswordDialog(){
         }
       })
 
-      async function onSubmit(values: z.infer<typeof formSchema>) {
+      async function onSubmit(values: z.infer<typeof formSchema>, onClose: ()=>void) {
         setLoading(true);
-
         let passwordObj = {
           title:values.title,
           username:values.username,
@@ -50,11 +49,10 @@ function PasswordDialog(){
           url:values.url,
           isWeb: values.isWeb,
         }
-        
-        await storeEntry(passwordObj);
+        let entryMsg = await (await storeEntry(passwordObj)).text();
+        toast.success(entryMsg);
         setLoading(false);
-        
-           
+        onClose();
     
       }
     
@@ -68,7 +66,7 @@ function PasswordDialog(){
               <ModalBody>
               <Form {...passwordForm}>
                   
-                  <form onSubmit={passwordForm.handleSubmit(onSubmit)} className="space-y-8 p-8 backdrop-blur-lg bg-white rounded-lg w-100 ">
+                  <form onSubmit={passwordForm.handleSubmit(values => onSubmit(values,onClose))} className="space-y-8 p-8 backdrop-blur-lg bg-white rounded-lg w-100 ">
                   <FormField
                       control={passwordForm.control}
                       name="title"
@@ -144,7 +142,7 @@ function PasswordDialog(){
                         <Button color="danger" variant="light" onPress={onClose}>
                             Cancelar
                         </Button>
-                        <Button color="primary" type="submit" isLoading={loading} >
+                        <Button color="primary" type="submit" isLoading={loading}>
                             Añadir
                         </Button>
                     </div>

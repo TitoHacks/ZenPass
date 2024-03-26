@@ -75,14 +75,14 @@ function Login() {
         storeDerivateKey(userObj.password,'hola',100000).then(result =>{
           sessionStorage.setItem("PassnovaUID",dataJson["_id"]);
           sessionStorage.setItem("username",dataJson["username"]);
-          toast("Welcome " + dataJson["username"]);
+          toast.success("Welcome " + dataJson["username"]);
   
           setTimeout(function(){
             setLoading(false);
             window.location.href = "/dashboard";
           },500)
         }).catch(error=>{
-          toast(error);
+          toast.error(error);
         })
        
 
@@ -102,9 +102,11 @@ function Login() {
             
               <div className='w-screen flex flex-row justify-evenly rounded-lg items-center'>
               <Loader loadingStates={loadingStates} loading={loading} duration={800} />
-                <Form {...loginForm}>
+                
+                <Form  {...loginForm}>
                   
                   <form onSubmit={loginForm.handleSubmit(onSubmit)} className="space-y-8 p-8 backdrop-blur-lg rounded-lg w-6/12 ">
+                  <h2 className="text-white font-bold text-xl">Login</h2>
                   <FormField
                       control={loginForm.control}
                       name="email"
@@ -112,7 +114,7 @@ function Login() {
                         <FormItem>
                           <FormLabel className="text-white">Email</FormLabel>
                           <FormControl>
-                            <Input placeholder="Email" type="email" {...field} />
+                            <Input placeholder="Email" className="text-white" type="email" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -126,7 +128,7 @@ function Login() {
                         <FormItem>
                           <FormLabel className="text-white">Password</FormLabel>
                           <FormControl>
-                            <Input placeholder="Password" type="password" {...field} />
+                            <Input placeholder="Password" className="text-white" type="password" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>

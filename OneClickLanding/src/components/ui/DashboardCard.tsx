@@ -1,5 +1,4 @@
 import { getStatusCount } from '@/utils/utils';
-import React from 'react'
 import {CircularProgress} from "@nextui-org/react";
 
 

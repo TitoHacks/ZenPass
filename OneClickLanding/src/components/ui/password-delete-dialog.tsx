@@ -1,19 +1,20 @@
-import React, { useState } from 'react'
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
+import {ModalContent, ModalHeader, ModalBody, ModalFooter, Button} from "@nextui-org/react";
 import { deleteEntry } from '@/utils/utils';
 import { toast } from 'sonner';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 
 
-async function handleDelete(passwordId:string){
+async function handleDelete(passwordId:string, deleteMethod:any){
   let message = await deleteEntry(passwordId);
-  toast(message);
-
+  toast(<p><FontAwesomeIcon icon={faCircleInfo} />{message}</p>);
+  deleteMethod();
   
 }
 
 
-function PasswordDeleteDialog(props){
+function PasswordDeleteDialog(props:any){
 
 
 
@@ -32,7 +33,7 @@ function PasswordDeleteDialog(props){
               <Button color="danger" variant="light" onPress={onClose}>
                   Cancelar
                 </Button>
-                <Button color="primary" onClick={function(){onClose;handleDelete(props.passwordId);}} onPress={onClose}>
+                <Button color="primary" onClick={function(){onClose;handleDelete(props.passwordId,props.deletedMethod);}} onPress={onClose}>
                   Eliminar
                 </Button>
               </ModalFooter>

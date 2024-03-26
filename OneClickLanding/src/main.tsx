@@ -11,6 +11,7 @@ import Login from './routes/Login.tsx';
 import { Toaster } from "@/components/ui/sonner"
 import Dashboard from './routes/Dashboard.tsx';
 import {NextUIProvider} from '@nextui-org/react'
+import Profile from './routes/Profile.tsx';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,9 @@ const router = createBrowserRouter([
   {path:"/Dashboard",
     element: <Dashboard/>,
   },
+  {path: "/Profile",
+    element: <Profile/>,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

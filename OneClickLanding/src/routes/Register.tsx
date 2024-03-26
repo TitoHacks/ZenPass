@@ -51,11 +51,13 @@ function Register() {
       body:JSON.stringify(userObj)
     }).then(async function(response){
         let text = await response.text();
-        toast(text);
         if(response.status == 200){ 
+          toast.success(text);
           setTimeout(function(){
             window.location.href = "/login";
           },3000)
+        }else{
+          toast.error(text);
         }
     })
   }
@@ -70,6 +72,7 @@ function Register() {
                 <Form {...registerForm}>
                   
                   <form onSubmit={registerForm.handleSubmit(onSubmit)} className="space-y-8 p-8 backdrop-blur-lg rounded-lg w-6/12 ">
+                  <h2 className="text-white font-bold text-xl">Register</h2>
                   <FormField
                       control={registerForm.control}
                       name="email"

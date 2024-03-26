@@ -8,21 +8,21 @@ import {Divider} from "@nextui-org/react";
 
 let username = sessionStorage.getItem("username");
 
+
 const SideNavbar = () => {
+
+
+
   return (
     <nav className='absolute top-0 left-0 bg-backgroundColorDark h-full px-6 w-1/8'>
-
-        
-
-
 
       <ul className='flex flex-col justify-evenly items-start h-full'>
       
         <li className='w-full'><a href="#"><img src="/public/zenpass-favicon-color.png" className='w-min'></img></a></li>
         <Divider className="my-1 bg-accentColorText " />
-        <li className='group w-full hover:cursor-pointer'><a href="#" className='transition-all font-semibold ease-in-out duration-150 delay-100 text-white group-hover:text-accentColor'><FontAwesomeIcon icon={faHouse} /> Home</a></li>
-        <li className='group w-full hover:cursor-pointer'><a href="/passwords" className='transition-all font-semibold ease-in-out duration-150 delay-100 text-white group-hover:text-accentColor'><FontAwesomeIcon icon={faLock} /> Passwords</a></li>
-        <li className='group w-full hover:cursor-pointer'><a href="/vault" className='transition-all font-semibold ease-in-out duration-150 delay-100 text-white group-hover:text-accentColor'><FontAwesomeIcon icon={faVault} /> Secure Vault</a></li>
+        <li className='group w-full hover:cursor-pointer'><a href="/Dashboard" className='transition-all font-semibold ease-in-out duration-150 delay-100 text-white group-hover:text-accentColor'><FontAwesomeIcon icon={faHouse} /> Home</a></li>
+        <li className='group w-full hover:cursor-pointer'><a href="/Passwords" className='transition-all font-semibold ease-in-out duration-150 delay-100 text-white group-hover:text-accentColor'><FontAwesomeIcon icon={faLock} /> Passwords</a></li>
+        <li className='group w-full hover:cursor-pointer'><a href="/Vault" className='transition-all font-semibold ease-in-out duration-150 delay-100 text-white group-hover:text-accentColor'><FontAwesomeIcon icon={faVault} /> Secure Vault</a></li>
         <Divider className="my-1 bg-accentColorText " />
         <p className='text-sm text-gray-400 font-semibold'>Account</p>
         <li>
@@ -44,7 +44,7 @@ const SideNavbar = () => {
                 <p className="font-semibold">Signed in as</p>
                 <p className="font-semibold">{username}</p>
               </DropdownItem>
-              <DropdownItem key="settings" color="danger" startContent={<FontAwesomeIcon icon={faGear} />}>
+              <DropdownItem key="settings" onClick={function(){window.location.href = "/Profile"}} color="danger" startContent={<FontAwesomeIcon icon={faGear} />}>
                 My Settings
               </DropdownItem>
               <DropdownItem key="logout" onClick={logout} color="danger" startContent={<FontAwesomeIcon icon={faArrowRightFromBracket} />}>

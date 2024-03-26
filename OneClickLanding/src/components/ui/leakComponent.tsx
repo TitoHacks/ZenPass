@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { WavyBackground } from './wavy-background'
+import { useState } from 'react'
 import { checkExistingLeaked } from '@/utils/utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faMagnifyingGlassChart } from '@fortawesome/free-solid-svg-icons'
@@ -15,7 +14,7 @@ import {
   
 
 
-function LeakComponent(props){
+function LeakComponent(props:any){
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 

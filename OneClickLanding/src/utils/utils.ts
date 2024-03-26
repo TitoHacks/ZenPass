@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import forge from 'node-forge';
 import { passwordStrength } from 'check-password-strength'
 import getRootDomain from 'get-root-domain';
+import { toast } from 'sonner';
 const ivKey = forge.random.getBytesSync(16);
 
 export function hashPassword(password:string):string{
@@ -48,9 +49,9 @@ export function getPasswordScore(password:string):string{
 }
 
 
-export async function generateStatus(entry:Object,encryptedPassword:string, passwordStatus:string):any[]{
+export async function generateStatus(entry:Entry,encryptedPassword:string, passwordStatus:string):Promise<string>{
 
-    let estados:any[] = [];
+    let estado:string;
     //Mirar si es contraseña reutilizada;
     /*fetch("/api/entry/isReused?=" + encryptedPassword ,{
         method:"GET"
@@ -64,27 +65,13 @@ export async function generateStatus(entry:Object,encryptedPassword:string, pass
 
     let leaks = await checkLeaked(entry);
     if(leaks.length > 0 ){
-      estados[0] = "leaked";
+      estado = "leaked";
     }else if(passwordStatus == "Weak" || passwordStatus == "Too weak"){
-      estados[0] = "weak";
-    } 
-
-
-    
-
-
-
-
-
-   
-    
-
-
-    if(estados.length == 0){
-        estados[0] = "safe";
+      estado = "weak";
+    } else{
+      estado = "safe";
     }
-
-    return estados;
+    return estado;
 
 }
 
@@ -106,11 +93,13 @@ export async function deleteEntry(entryId:string):Promise<string>{
 
 export async function storeEntry(values:any){
     console.log("Saving entry...");
+    toast("Encrypting data...");
     let encryptedPassword = encrypt(values["password"]);
     let passwordScore = getPasswordScore(values["password"])
     let estados = await generateStatus(values,encryptedPassword,passwordScore);
     let leakInfo = [];
-    if(estados.includes("leaked")){
+    toast("Checking for leaks...");
+    if(estados == "leaked"){
       let leak = await checkLeaked(values);
       if(leak.length > 0){
         leakInfo = await getLeakedInfo(leak[0]["Name"]);
@@ -131,24 +120,43 @@ export async function storeEntry(values:any){
         leakInfo: leakInfo,
     }
 
-    fetch("/api/entry/newEntry",{
+    return await fetch("/api/entry/newEntry",{
         method:"POST",
         headers: {
           'content-type': 'application/json;charset=UTF-8',
         },
         body:JSON.stringify(encryptedEntry)
       })
-      console.log("Entry saved!");
-
 
 }
+
+export async function importPasswords(data:any, fileInfo:any, originalFile:any){
+
+  console.log(data);
+  let csvKeys = Object.keys(data);
+  for(let i = 0; i < csvKeys.length; i++){
+    let currentPassword = data[csvKeys[i]];
+    let entryObj = {
+      title: currentPassword["name"],
+      username:currentPassword["username"],
+      password:currentPassword["password"],
+      url:currentPassword["url"],
+      ownerId:sessionStorage.getItem("PassnovaUID"),
+      isWeb:"true",
+    }
+   await storeEntry(entryObj);
+  }
+  
+}
+
 
 export function getFavIcon(url:string, size:number):string{
   let favicon = "public/defaultIcon.png";
   if(url.includes("https") || url.includes("http")){
     let rootDomain = getRootDomain(url)
     try{
-      return "https://www.google.com/s2/favicons?domain="+rootDomain + "&sz=" + size;
+      return "https://noisy-crimson-chinchilla.faviconkit.com/" + rootDomain  + "/" + size;
+      //return "https://www.google.com/s2/favicons?domain="+rootDomain + "&sz=" + size;
     }catch(error){
       favicon = "public/defaultIcon.png";
     }
@@ -159,9 +167,9 @@ export function getFavIcon(url:string, size:number):string{
 }
 
 
-export async function updateEntry(entry:Object){
+export async function updateEntry(entry:Entry){
   let encryptedPassword = encrypt(entry.password);
-  let passwordScore = getPasswordScore(entry.password)
+  let passwordScore = getPasswordScore(entry.password!)
   console.log("Id:" + entry._id);
   let encryptedEntry = {
       _id:entry._id,
@@ -221,13 +229,12 @@ export async function getLeakedInfo(breachName:string):Promise<any>{
 }
 
 
-export async function checkExistingLeaked(entry:Object){
-
+export async function checkExistingLeaked(entry:Entry){
   let leaks = await checkLeaked(entry);
   if(leaks.length > 0){
     //Actualizar entry y cambiar estado a leaked
-    if(entry.status[0] != "leaked"){
-      entry.status[0] = "leaked";
+    if(entry.status! != "leaked"){
+      entry.status! = "leaked";
       entry.leakInfo =  await getLeakedInfo(leaks[0]["Name"]);
       updateEntry(entry);
     }
@@ -321,7 +328,7 @@ export function decrypt(value:any, ivKey:any):string{
 }
 
 
-export function getStatusCount(passwordEntries:any[]):Object{
+export function getStatusCount(passwordEntries:any[]):Status{
     let safePasswordCount = 0;
     let weakPasswordCount = 0;
     let reusedPasswordCount = 0;
@@ -364,15 +371,15 @@ export function getStatusCount(passwordEntries:any[]):Object{
       if(isNaN(leakedPorcent)){
         leakedPorcent = 0;
       }
-    let dataObj = {
-        safeCount: safePasswordCount,
-        safePorcent: safePorcent,
-        weakCount: weakPasswordCount,
-        weakPorcent:weakPorcent,
-        reusedCount: reusedPasswordCount,
-        reusedPorcent:reusedPorcent,
-        leakedCount: leakedPasswordCount,
-        leakedPorcent:leakedPorcent,
+    let dataObj:Status = {
+      safeCount: safePasswordCount,
+      safePorcent: safePorcent,
+      weakCount: weakPasswordCount,
+      weakPorcent: weakPorcent,
+      reusedCount: reusedPasswordCount,
+      reusedPorcent: reusedPorcent,
+      leakedCount: leakedPasswordCount,
+      leakedPorcent: leakedPorcent,
     }
 
     return dataObj;
