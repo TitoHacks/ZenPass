@@ -49,7 +49,7 @@ export function getPasswordScore(password:string):string{
 }
 
 
-export async function generateStatus(entry:Entry,encryptedPassword:string, passwordStatus:string):Promise<string>{
+export async function generateStatus(entry:Entry,encryptedPassword:string, passwordStatus:string,skipLeakCheck:boolean = false):Promise<string>{
 
     let estado:string;
     //Mirar si es contraseña reutilizada;
@@ -62,8 +62,11 @@ export async function generateStatus(entry:Entry,encryptedPassword:string, passw
     })*/
 
     //Mirar si la contraseña esta filtrada
-
-    let leaks = await checkLeaked(entry);
+    let leaks = [];
+    if(!skipLeakCheck){
+      leaks = await checkLeaked(entry);
+    }
+    
     if(leaks.length > 0 ){
       estado = "leaked";
     }else if(passwordStatus == "Weak" || passwordStatus == "Too weak"){
@@ -91,12 +94,12 @@ export async function deleteEntry(entryId:string):Promise<string>{
 
 
 
-export async function storeEntry(values:any){
+export async function storeEntry(values:any, skipLeakCheck:boolean = false){
     console.log("Saving entry...");
     toast("Encrypting data...");
     let encryptedPassword = encrypt(values["password"]);
     let passwordScore = getPasswordScore(values["password"])
-    let estados = await generateStatus(values,encryptedPassword,passwordScore);
+    let estados = await generateStatus(values,encryptedPassword,passwordScore, skipLeakCheck);
     let leakInfo = [];
     toast("Checking for leaks...");
     if(estados == "leaked"){
@@ -145,7 +148,8 @@ export async function importPasswords(data:any, fileInfo:any, originalFile:any, 
       ownerId:sessionStorage.getItem("PassnovaUID"),
       isWeb:"true",
     }
-   await storeEntry(entryObj);
+   await storeEntry(entryObj,true);
+   console.log("Progreso Actual: " + (i+1) * 100 / csvKeys.length + "%")
    setLoadValue((i+1) * 100 / csvKeys.length);
   }
   onClose();
