@@ -14,7 +14,7 @@ const SideNavbar = () => {
 
 
   return (
-    <nav className='absolute top-0 left-0 bg-backgroundColorDark h-full px-6 w-1/8'>
+    <nav className='absolute top-0 left-0 bg-backgroundColorDark h-screen px-6 w-1/8'>
 
       <ul className='flex flex-col justify-evenly items-start h-full'>
       

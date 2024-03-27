@@ -3,6 +3,7 @@ import React from 'react'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import {Badge, Avatar} from "@nextui-org/react";
+import PasswordComponent from './password-component';
 
 
 function calculateScore(statusData:Object):number{
@@ -53,11 +54,15 @@ function getScoreText(score:number):Object{
 
 
 function ScorePanel(props:any){
-
-  let statusData = getStatusCount(props.passwordEntries);
+  let passwordEntries:any[] = props.passwordEntries;
+  let statusData = getStatusCount(passwordEntries);
 
   let score = calculateScore(statusData);
   let scoreData = getScoreText(score);
+  let passwordComponents:JSX.Element[] = [];
+  passwordEntries.forEach((entry)=>{
+    passwordComponents.push(<PasswordComponent favicon={entry.favicon} title={entry.title} url={entry.url}></PasswordComponent>)
+  })
   
 
   return (
@@ -73,9 +78,6 @@ function ScorePanel(props:any){
                 </div>
               </Badge>
             </div>
-          
-          <h2 className='text-gray-400 font-medium text-2xl p-4'>Latest Passwords</h2>
-        
       </div>
     
   )

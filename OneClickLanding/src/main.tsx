@@ -12,6 +12,7 @@ import { Toaster } from "@/components/ui/sonner"
 import Dashboard from './routes/Dashboard.tsx';
 import {NextUIProvider} from '@nextui-org/react'
 import Profile from './routes/Profile.tsx';
+import Passwords from './routes/Passwords.tsx';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,9 @@ const router = createBrowserRouter([
   },
   {path: "/Profile",
     element: <Profile/>,
+  },
+  {path: "/Passwords",
+    element:<Passwords/>
   }
 ]);
 

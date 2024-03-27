@@ -106,6 +106,18 @@ router.post("/updateEntry",async(request,response)=>{
     
 })
 
+router.post("/deleteAllData",async(request,response)=>{
+
+    try{
+        await Entry.deleteMany({ownerId:request.body._id});
+        response.status(200).send("Datos eliminados correctamente!");
+    }catch(error){
+        console.log(error);
+        response.status(500).send("Error eliminando datos");
+    }
+
+})
+
 
 
 module.exports = router;

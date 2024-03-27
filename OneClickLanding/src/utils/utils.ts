@@ -3,7 +3,10 @@ import forge from 'node-forge';
 import { passwordStrength } from 'check-password-strength'
 import getRootDomain from 'get-root-domain';
 import { toast } from 'sonner';
+import { mkConfig, generateCsv, download } from "export-to-csv";
+
 const ivKey = forge.random.getBytesSync(16);
+const csvConfig = mkConfig({ useKeysAsHeaders: true, filename: "ZenPass Passwords", quoteStrings:false });
 
 export function hashPassword(password:string):string{
 
@@ -49,7 +52,7 @@ export function getPasswordScore(password:string):string{
 }
 
 
-export async function generateStatus(entry:Entry,encryptedPassword:string, passwordStatus:string,skipLeakCheck:boolean = false):Promise<string>{
+export async function generateStatus(entry:Entry,passwordStatus:string,skipLeakCheck:boolean = false):Promise<string>{
 
     let estado:string;
     //Mirar si es contraseña reutilizada;
@@ -99,7 +102,7 @@ export async function storeEntry(values:any, skipLeakCheck:boolean = false){
     toast("Encrypting data...");
     let encryptedPassword = encrypt(values["password"]);
     let passwordScore = getPasswordScore(values["password"])
-    let estados = await generateStatus(values,encryptedPassword,passwordScore, skipLeakCheck);
+    let estados = await generateStatus(values,passwordScore, skipLeakCheck);
     let leakInfo = [];
     toast("Checking for leaks...");
     if(estados == "leaked"){
@@ -133,6 +136,67 @@ export async function storeEntry(values:any, skipLeakCheck:boolean = false){
 
 }
 
+
+export async function deleteAllData(){
+  let userId = sessionStorage.getItem("PassnovaUID");
+  let serverMsg =  await fetch("/api/entry/deleteAllData",{
+    method:"POST",
+    headers: {
+      'content-type': 'application/json;charset=UTF-8',
+    },
+    body:JSON.stringify({_id:userId})
+  })
+  if(serverMsg.status == 200){
+    toast.success(await serverMsg.text());
+  }else{
+    toast.error(await serverMsg.text());
+  }
+  
+
+}
+
+
+export async function exportCSV(setLoadingExport:any){
+  setLoadingExport(true);
+  let entries:Entry[] = await getEntries();
+  let formatedEntries:any[] = [];
+  entries.forEach((entry)=>{
+    let formatedEntry = {
+        name: entry.title,
+        url: entry.url,
+        username: entry.username,
+        password: entry.password,
+        note: ""
+    }
+    formatedEntries.push(formatedEntry);
+  })
+  let generatedCsv = generateCsv(csvConfig)(formatedEntries);
+  download(csvConfig)(generatedCsv);
+  setLoadingExport(false);
+  toast.success("Data exported successfully!");
+
+}
+
+
+export async function editData(userInput:string, passwordInput:string, urlInput:string, titleInput:string, entryObj:Entry, setUpdated:any){
+  console.log("username: " + userInput + ", password: " + passwordInput + ", url: " + urlInput);
+
+  entryObj.title = titleInput;
+  entryObj.username = userInput;
+  entryObj.password = passwordInput;
+  entryObj.status = await generateStatus(entryObj,entryObj.score!,true);
+  entryObj.url = urlInput;
+
+
+  let serverData = await updateEntry(entryObj);
+  if(serverData.status == 200){
+    toast.success(await serverData.text());
+  }else{
+    toast.error(await serverData.text());
+  }
+}
+
+
 export async function importPasswords(data:any, fileInfo:any, originalFile:any, setLoadValue:any, onClose:any){
 
   console.log(data);
@@ -148,7 +212,10 @@ export async function importPasswords(data:any, fileInfo:any, originalFile:any, 
       ownerId:sessionStorage.getItem("PassnovaUID"),
       isWeb:"true",
     }
-   await storeEntry(entryObj,true);
+   let serverData = await storeEntry(entryObj,true);
+   if(serverData.status ==500){
+      toast.error("Error al importar contraseña");
+   }
    console.log("Progreso Actual: " + (i+1) * 100 / csvKeys.length + "%")
    setLoadValue((i+1) * 100 / csvKeys.length);
   }
@@ -193,7 +260,7 @@ export async function updateEntry(entry:Entry){
       leakInfo: entry.leakInfo,
   }
 
-  fetch("/api/entry/updateEntry",{
+  return fetch("/api/entry/updateEntry",{
       method:"POST",
       headers: {
         'content-type': 'application/json;charset=UTF-8',

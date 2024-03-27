@@ -1,8 +1,8 @@
 import React from 'react'
-import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip, ChipProps, Pagination, Modal} from "@nextui-org/react";
+import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Chip, ChipProps, Pagination, Modal, Input} from "@nextui-org/react";
 import { useState } from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {IconDefinition, faCopy, faEye, faEyeSlash,faPenToSquare,faTrash} from "@fortawesome/free-solid-svg-icons";
+import {IconDefinition, faCopy, faEye, faEyeSlash,faFloppyDisk,faPenToSquare,faTrash} from "@fortawesome/free-solid-svg-icons";
 import {Button} from "@nextui-org/react";
 import PasswordDeleteDialog from './password-delete-dialog';
 import {
@@ -21,6 +21,7 @@ import {Divider} from "@nextui-org/react";
 import LeakComponent from './leakComponent';
 import { toast } from 'sonner';
 import {Image} from "@nextui-org/react";
+import { editData } from '@/utils/utils';
 
   
 const statusColorMap: Record<string, ChipProps["color"]>  = {
@@ -35,6 +36,7 @@ function DashboardTable(props:any) {
   const tableRows = props.passwordEntries;
   const [open,setOpen] = useState(false);
   const [detail,setDetail] = useState<boolean>(false);
+  const [edit,setEdit] = useState(false);
   const [shown,setShown] = useState(false);
   const [viewIcon, setViewIcon] = useState<IconDefinition>(faEye);
   const [passwordId, setPasswordId] = useState<String>();
@@ -92,7 +94,7 @@ function DashboardTable(props:any) {
           return (
 
             <div className="relative flex items-center gap-2">
-              <Button variant='light'><FontAwesomeIcon icon={faPenToSquare}></FontAwesomeIcon></Button>
+              <Button variant='light' onClick={function(){setPasswordItem(entry);setEdit(true)}}><FontAwesomeIcon icon={faPenToSquare}></FontAwesomeIcon></Button>
               <Button variant='light' color='danger' onClick={function(){setPasswordId(entry["_id"]);setOpen(true)}}><FontAwesomeIcon icon={faTrash}></FontAwesomeIcon></Button>
             </div>
           );
@@ -141,7 +143,7 @@ function DashboardTable(props:any) {
           <TableRow key={item._id} className='transition-all ease-in-out duration-150 delay-50 hover:bg-backgroundColorDark cursor-pointer' onClick={function(){setPasswordItem(item);setDetail(true);}}>
             {(columnKey) => 
             
-              <TableCell className='text-white'> 
+              <TableCell className='text-white truncate max-w-64'> 
                 
               {renderCell(item, columnKey)}
                  
@@ -160,8 +162,8 @@ function DashboardTable(props:any) {
               <div className='flex flex-row justify-between items-center mt-4'>
                 <Image src={passwordItem.favicon} fallbackSrc="public/defaultIcon.png"  className='w-16 h-max'/>
                 <div className='flex flex-col ml-4 w-full'>
-                  <SheetTitle>{passwordItem.title}</SheetTitle>
-                  <SheetDescription>
+                  <SheetTitle className='truncate max-w-64'>{passwordItem.title}</SheetTitle>
+                  <SheetDescription className='truncate max-w-60'>
                   <a href={passwordItem.url}  target='_blank'>{passwordItem.url}</a>
                   </SheetDescription>
                 </div>
@@ -173,7 +175,7 @@ function DashboardTable(props:any) {
             <div>
               <br/>
               <Label className='text-sm text-gray-400'>Usuario</Label>
-              <p className='text-lg'>{passwordItem.username}</p>
+              <p className='text-lg truncate'>{passwordItem.username}</p>
               <br/>
               <Label className='text-sm text-gray-400'>Contraseña</Label>
               <br/>
@@ -192,7 +194,7 @@ function DashboardTable(props:any) {
               
               <br/>
               <Label className='text-sm text-gray-400'>URL</Label>
-              <a href={passwordItem.url} target='_blank'><p className='text-lg'>{passwordItem.url}</p></a>
+              <a href={passwordItem.url} target='_blank'><p className='text-lg truncate'>{passwordItem.url}</p></a>
               <br/>
               <Label className='text-sm text-gray-400'>Strength</Label>
 
@@ -204,6 +206,46 @@ function DashboardTable(props:any) {
             </div>
           </SheetContent>
       </Sheet>
+
+
+      <Sheet open={edit} key={passwordItem._id + "2"} onOpenChange={setEdit}>
+          <SheetContent>
+            <SheetHeader>
+              <div className='flex flex-row justify-between items-center mt-4'>
+                <Image src={passwordItem.favicon} fallbackSrc="public/defaultIcon.png"  className='w-16 h-max'/>
+                <div className='flex flex-col ml-4 w-full'>
+                  <SheetTitle className='truncate max-w-64'><Input id='titleInput' defaultValue={passwordItem.title}></Input></SheetTitle>
+                </div>
+                <Chip className="capitalize self-start" color='warning' size="sm" variant="flat">Edit</Chip>
+              </div>
+                
+            </SheetHeader>
+            <Divider className="my-4" />
+            <div>
+              <br/>
+              <Label className='text-sm text-gray-400'>Usuario</Label>
+              <Input className='text-lg' id='usernameInput' contentEditable={true} defaultValue={passwordItem.username}></Input>
+              <br/>
+              <Label className='text-sm text-gray-400'>Contraseña</Label>
+              <br/>
+              <div className='flex flex-row justify-evenly'>
+                <Input className='text-lg w-full bg-transparent' id="passwordInput" readOnly={false} contentEditable={true} defaultValue={passwordItem.password} type="password"></Input>
+              </div>
+              
+              <br/>
+              <Label className='text-sm text-gray-400'>URL</Label>
+              <Input id='urlInput' contentEditable={true} defaultValue={passwordItem.url}></Input>
+              <br/>
+              <Label className='text-sm text-gray-400'>Strength</Label>
+
+              <Progress className='pt-4' size="sm" aria-label="Loading..." color="primary" value={passwordItem.scorePoints} label={passwordItem.score} showValueLabel={true} />
+              <br/>
+              <Divider className="my-4" />
+              <Button className='w-full' onClick={function(){editData((document.getElementById('usernameInput') as HTMLInputElement).value!,(document.getElementById('passwordInput') as HTMLInputElement).value!,(document.getElementById('urlInput')  as HTMLInputElement).value!,(document.getElementById('titleInput') as HTMLInputElement).value!,passwordItem,props.updatedMethod); props.updatedMethod(!props.updated);}} variant='flat' color='warning' startContent={<FontAwesomeIcon icon={faFloppyDisk} />}>Guardar cambios</Button>
+            </div>
+          </SheetContent>
+      </Sheet>
+
     </div>
   )
 
