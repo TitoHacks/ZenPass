@@ -1,14 +1,6 @@
 import { useEffect, useState } from "react";
 import SideNavbar from "@/components/ui/sideNavbar";
-import DashboardCard from "@/components/ui/DashboardCard";
-import DashboardTable from "@/components/ui/DashboardTable";
-import ScorePanel from "@/components/ui/ScorePanel";
 import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-  Avatar,
   Divider,
   Input,
   Button,

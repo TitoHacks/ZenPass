@@ -48,8 +48,6 @@ function Login() {
   });
   ////////////////////////////////////////////////////
 
-  const [count, setCount] = useState(0);
-
   const loginForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

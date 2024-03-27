@@ -1,8 +1,7 @@
 import { getStatusCount } from "@/utils/utils";
-import React from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { Badge, Avatar } from "@nextui-org/react";
+import { Badge} from "@nextui-org/react";
 import PasswordComponent from "./password-component";
 
 function calculateScore(statusData: Object): number {

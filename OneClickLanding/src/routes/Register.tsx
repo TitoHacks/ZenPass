@@ -30,7 +30,6 @@ const formSchema = z.object({
 });
 
 function Register() {
-  const [count, setCount] = useState(0);
 
   const registerForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
