@@ -101,7 +101,7 @@ function DashboardTable(props: any) {
   function copyPassword() {
     let passwordElement = document.getElementById("entryPassword")!;
     navigator.clipboard.writeText(passwordElement.getAttribute("value")!);
-    toast("Password copied to clipboard");
+    toast.success("Password copied to clipboard");
   }
 
   //Metodo utilizado para renderizar elementos custom dependiendo de la columna de la tabla

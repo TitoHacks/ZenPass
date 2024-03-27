@@ -87,7 +87,7 @@ function Login() {
             toast.error(error);
           });
       } else {
-        toast(await response.text());
+        toast.info(await response.text());
         setLoading(false);
       }
     });

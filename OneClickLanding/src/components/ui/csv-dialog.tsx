@@ -6,7 +6,6 @@ import {
   ModalBody,
   Button,
 } from "@nextui-org/react";
-import { toast } from "sonner";
 import CSVReader from "react-csv-reader";
 import { Progress } from "@nextui-org/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

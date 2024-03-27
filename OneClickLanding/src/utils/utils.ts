@@ -92,13 +92,12 @@ export async function deleteEntry(entryId:string):Promise<string>{
 
 //Metodo que recive un objeto values (Representan una credencial), y se almacenan en bd encriptados.
 export async function storeEntry(values:any, skipLeakCheck:boolean = false){
-    console.log("Saving entry...");
-    toast("Encrypting data...");
+    toast.info("Encrypting data...");
     let encryptedPassword = encrypt(values["password"]);
     let passwordScore = getPasswordScore(values["password"])
     let estados = await generateStatus(values,passwordScore, skipLeakCheck);
     let leakInfo = [];
-    toast("Checking for leaks...");
+    toast.info("Checking for leaks...");
     if(estados == "leaked"){
       let leak = await checkLeaked(values);
       if(leak.length > 0){

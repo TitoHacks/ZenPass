@@ -126,7 +126,7 @@ function Passwords() {
   function copyPassword() {
     let passwordElement = document.getElementById("entryPassword")!;
     navigator.clipboard.writeText(passwordElement.getAttribute("value")!);
-    toast("Password copied to clipboard");
+    toast.success("Password copied to clipboard");
   }
 
   return (
