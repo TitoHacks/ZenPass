@@ -78,11 +78,12 @@ function ScorePanel(props: any) {
           color={scoreData.color}
           variant="flat"
           showOutline={false}
+          placement="bottom-right"
         >
           <div className=" h-full w-full rounded-full flex flex-row justify-center items-center">
             <CircularProgressbar
               value={score}
-              text={score.toString() + "%"}
+              text={score.toString() + "%" }
               strokeWidth={7}
               styles={buildStyles({
                 textSize: "16",
