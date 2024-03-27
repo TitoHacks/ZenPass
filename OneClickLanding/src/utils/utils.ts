@@ -190,7 +190,7 @@ export async function editData(userInput:string, passwordInput:string, urlInput:
   }
 }
 
-//Metodo que los datos ya leidos de un archivo csv, y añade las correspondientes entradas a la bd utilizando el metodo storeEntry.
+//Metodo que obtiene datos ya leidos de un archivo csv, y añade las correspondientes entradas a la bd utilizando el metodo storeEntry.
 export async function importPasswords(data:any, fileInfo:any, originalFile:any, setLoadValue:any, onClose:any){
 
   console.log(data);
@@ -405,7 +405,8 @@ export function decrypt(value:any, ivKey:any):string{
         return decipher.output.data;
 }
 
-//Metodo que recive un array de credenciales, para determinar la puntuacion de seguridad global.
+//Metodo que recive un array de credenciales, para mostrar la cantidad de credenciales (en porcentaje) que corresponden al computo
+//total de credenciales.
 export function getStatusCount(passwordEntries:any[]):Status{
     let safePasswordCount = 0;
     let weakPasswordCount = 0;

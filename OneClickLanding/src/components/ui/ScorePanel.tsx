@@ -4,6 +4,7 @@ import "react-circular-progressbar/dist/styles.css";
 import { Badge} from "@nextui-org/react";
 import PasswordComponent from "./password-component";
 
+//Funcion que calcula la puntuacion total de seguridad.
 function calculateScore(statusData: Object): number {
   let overallScore = 0;
   const safePoints = 4;
@@ -24,6 +25,8 @@ function calculateScore(statusData: Object): number {
   return 0;
 }
 
+//Fucnion que, segun el score obtenido al calcularlo, devuelve un objeto con un texto y color, mostrando si la puntuacion obtenida es
+//baja, media o alta
 function getScoreText(score: number): Object {
   let text = "";
   let color = "";

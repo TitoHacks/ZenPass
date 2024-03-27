@@ -32,9 +32,6 @@ async function handleDelete(onClose: any, setLoading: any) {
 }
 
 function Profile() {
-  //Funciones al cargar la pagina
-
-  ////////////////////////////////////////////////////
   const [open, setOpen] = useState(false);
   const [loadingExport, setLoadingExport] = useState(false);
   const [loading, setLoading] = useState(false);

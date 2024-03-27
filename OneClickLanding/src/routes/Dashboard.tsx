@@ -18,15 +18,13 @@ import { faFile, faPlus } from "@fortawesome/free-solid-svg-icons";
 import CsvDialog from "@/components/ui/csv-dialog";
 
 function Dashboard() {
-  //Funciones al cargar la pagina
-
-  ////////////////////////////////////////////////////
   const [open, setOpen] = useState(false);
   const [openCsv, setOpenCsv] = useState(false);
   const [deleted, setDeleted] = useState(false);
   const [updated, setUpdated] = useState(false);
   const [passwordEntries, setPasswordEntries] = useState<JSX.Element[]>([]);
 
+  //Obtiene las credenciales del usuario actual, siempre que las variables entre corchetes cambien.
   useEffect(() => {
     async function fetchData() {
       const entries = await getEntries();

@@ -75,7 +75,6 @@ function DashboardTable(props: any) {
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 6;
   const pages = Math.ceil(tableRows.length / rowsPerPage);
-  console.log(pages);
   const items: Entry = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
@@ -83,6 +82,7 @@ function DashboardTable(props: any) {
     return tableRows.slice(start, end);
   }, [page, tableRows]);
 
+  //Metodo que muestra la contraseña al hacer click en el boton con icono de ojo
   function showPassword() {
     if (shown) {
       document
@@ -97,12 +97,14 @@ function DashboardTable(props: any) {
     }
   }
 
+  //Metodo que copia la contraseña al hacer click en el boton con icono de copiar
   function copyPassword() {
     let passwordElement = document.getElementById("entryPassword")!;
     navigator.clipboard.writeText(passwordElement.getAttribute("value")!);
     toast("Password copied to clipboard");
   }
 
+  //Metodo utilizado para renderizar elementos custom dependiendo de la columna de la tabla
   const renderCell = React.useCallback((entry: Entry, columnKey: React.Key) => {
     const cellValue = entry[columnKey as keyof Entry];
 
