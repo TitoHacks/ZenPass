@@ -13,7 +13,7 @@ export function hashPassword(password:string):string{
     return bcrypt.hashSync(password,10);
 
 }
-
+//Metodo que recive una contrasñea y un hash, para determinar si coinciden.
 export function matchesPassword(password:string, hashedPassword:string):boolean{
     bcrypt.compare(password,hashedPassword,function(err,isMatch){
         if(isMatch){
@@ -23,7 +23,8 @@ export function matchesPassword(password:string, hashedPassword:string):boolean{
     return false;
 }
 
-
+//Metodo que recive la contraseña del usuario, un salt y el numero de iteraciones, para calcular una contraseña maestra derivada de la original
+//haciendo uso de la libreria forge pbkdf2
 export async function storeDerivateKey(originalPassword:string, salt:string, iterations:number){
     const KEY_LENGTH = 32;
     return new Promise((resolve,reject)=>{
@@ -39,30 +40,23 @@ export async function storeDerivateKey(originalPassword:string, salt:string, ite
     });
         
 }
-
+//Metodo que elimina todos los datos de la sesion actual, para cerrarla
 export function logout(){
     sessionStorage.removeItem("derivatedKey");
     sessionStorage.removeItem("PassnovaUID");
     window.location.href = "/";
 }
 
-
+//Metodo que devuelve la fuerza de una contraseña
 export function getPasswordScore(password:string):string{
     return passwordStrength(password).value;
 }
 
-
+//Metodo que recive una credencial y su status (realmente score), para determinar el estado de una credencial.
+//Para detectar las filtraciones de datos, se utiliza el metodo checkLeaked
 export async function generateStatus(entry:Entry,passwordStatus:string,skipLeakCheck:boolean = false):Promise<string>{
 
     let estado:string;
-    //Mirar si es contraseña reutilizada;
-    /*fetch("/api/entry/isReused?=" + encryptedPassword ,{
-        method:"GET"
-    }).then(response => response.json()).then(data=>{
-        if(data["reused"]){
-            estados.push("reused");
-        }
-    })*/
 
     //Mirar si la contraseña esta filtrada
     let leaks = [];
@@ -81,7 +75,7 @@ export async function generateStatus(entry:Entry,passwordStatus:string,skipLeakC
 
 }
 
-
+//Metodo que elimina una credencial, llamando a /entry/deleteEntry pasando el entryId que recive como parametro.
 export async function deleteEntry(entryId:string):Promise<string>{
     let message = await fetch("/api/entry/deleteEntry",{
         method:"POST",
@@ -96,7 +90,7 @@ export async function deleteEntry(entryId:string):Promise<string>{
 }
 
 
-
+//Metodo que recive un objeto values (Representan una credencial), y se almacenan en bd encriptados.
 export async function storeEntry(values:any, skipLeakCheck:boolean = false){
     console.log("Saving entry...");
     toast("Encrypting data...");
@@ -136,7 +130,7 @@ export async function storeEntry(values:any, skipLeakCheck:boolean = false){
 
 }
 
-
+//Metodo que elimina todas las credenciales almacenadas del usuario actual.
 export async function deleteAllData(){
   let userId = sessionStorage.getItem("PassnovaUID");
   let serverMsg =  await fetch("/api/entry/deleteAllData",{
@@ -155,7 +149,7 @@ export async function deleteAllData(){
 
 }
 
-
+//Metodo que obtiene todas las credenciales correspondientes al usuario actual, crea un archivo csv, y lo descarga
 export async function exportCSV(setLoadingExport:any){
   setLoadingExport(true);
   let entries:Entry[] = await getEntries();
@@ -177,7 +171,7 @@ export async function exportCSV(setLoadingExport:any){
 
 }
 
-
+//Metodo que recive los valores actualizados de una credencial y la credencial antigua, para posteriormente actualizar en bd.
 export async function editData(userInput:string, passwordInput:string, urlInput:string, titleInput:string, entryObj:Entry, setUpdated:any){
   console.log("username: " + userInput + ", password: " + passwordInput + ", url: " + urlInput);
 
@@ -196,7 +190,7 @@ export async function editData(userInput:string, passwordInput:string, urlInput:
   }
 }
 
-
+//Metodo que los datos ya leidos de un archivo csv, y añade las correspondientes entradas a la bd utilizando el metodo storeEntry.
 export async function importPasswords(data:any, fileInfo:any, originalFile:any, setLoadValue:any, onClose:any){
 
   console.log(data);
@@ -224,7 +218,7 @@ export async function importPasswords(data:any, fileInfo:any, originalFile:any, 
   
 }
 
-
+//Metodo que recive una url y un tamaño (pixeles), y devuelve el favicon de la url.
 export function getFavIcon(url:string, size:number):string{
   let favicon = "public/defaultIcon.png";
   if(url.includes("https") || url.includes("http")){
@@ -241,7 +235,7 @@ export function getFavIcon(url:string, size:number):string{
 
 }
 
-
+//Metodo que recive un objeto Entry y actualiza la correspondiente entrada en BD, llamando a la api /entry/updateEntry en el backend.
 export async function updateEntry(entry:Entry){
   let encryptedPassword = encrypt(entry.password);
   let passwordScore = getPasswordScore(entry.password!)
@@ -303,7 +297,7 @@ export async function getLeakedInfo(breachName:string):Promise<any>{
     return {};
 }
 
-
+//
 export async function checkExistingLeaked(entry:Entry){
   let leaks = await checkLeaked(entry);
   if(leaks.length > 0){
@@ -319,6 +313,7 @@ export async function checkExistingLeaked(entry:Entry){
 
 }
 
+//Metodo utilizado para calcular los puntos correspondientes al score de una credencial
 
 export function getScorePoints(score:string):number{
   let scorePoints = 25;
@@ -341,7 +336,8 @@ export function getScorePoints(score:string):number{
 }
 
 
-
+//Metodo encargado de recuperar las credenciales de un usuario, haciendo una peticion get al sevidor.
+//El servidor responde con datos encriptados, y el cliente los desencripta antes de devolverlos.
 export async function getEntries():Promise<any[]>{
 
     let decryptedEntries:any[] = [];
@@ -382,6 +378,9 @@ export async function getEntries():Promise<any[]>{
 
 }
 
+//Metodo utilizado para encriptar los datos en el cliente antes de enviarlos al servidor.
+//Se utiliza la clave derivada guardada en sesion para encriptar, y se utiliza el iv(cadena de caracteres random)
+//para que el resultado encriptado no sea el mismo.
 export function encrypt(value:any):string{
 
         let derivatedKey = sessionStorage.getItem("derivatedKey");
@@ -392,6 +391,9 @@ export function encrypt(value:any):string{
         return cipher.output.toHex();
 
 }
+
+//Metodo utilizado para desencriptar los datos recibidos desde el servidor.
+//Mismo procedimiento que encrypt()
 
 export function decrypt(value:any, ivKey:any):string{
         let derivatedKey = sessionStorage.getItem("derivatedKey");
