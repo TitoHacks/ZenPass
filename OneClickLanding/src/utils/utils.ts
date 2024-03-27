@@ -264,7 +264,8 @@ export async function updateEntry(entry:Entry){
 }
 
 
-
+//Metodo que recive un objeto credencial y realiza una llamada a la api /entry/checkLeak, para determinar si una credencial ha sido filtrada online.
+//Como mucho se realizan 3 intentos.
 export async function checkLeaked(entry:any):Promise<any>{
   let retryCount = 0;
   while(retryCount < 3){
@@ -287,7 +288,7 @@ export async function checkLeaked(entry:any):Promise<any>{
   return {}
 
 }
-
+//Metodo que realiza una llamada a /entry/leakDetails para obtener los detalles de una filtracion.
 export async function getLeakedInfo(breachName:string):Promise<any>{
   let leakInfo = await fetch("/api/entry/leakDetails?name=" + breachName);
     if(leakInfo.status == 200){
@@ -297,7 +298,8 @@ export async function getLeakedInfo(breachName:string):Promise<any>{
     return {};
 }
 
-//
+//Metodo encargado de determinar si una credencial ya almacenada en bd ha sido filtrada online.
+//Utilizada para el boton "Analizar"
 export async function checkExistingLeaked(entry:Entry){
   let leaks = await checkLeaked(entry);
   if(leaks.length > 0){
@@ -314,7 +316,6 @@ export async function checkExistingLeaked(entry:Entry){
 }
 
 //Metodo utilizado para calcular los puntos correspondientes al score de una credencial
-
 export function getScorePoints(score:string):number{
   let scorePoints = 25;
   switch(score){
@@ -404,7 +405,7 @@ export function decrypt(value:any, ivKey:any):string{
         return decipher.output.data;
 }
 
-
+//Metodo que recive un array de credenciales, para determinar la puntuacion de seguridad global.
 export function getStatusCount(passwordEntries:any[]):Status{
     let safePasswordCount = 0;
     let weakPasswordCount = 0;
