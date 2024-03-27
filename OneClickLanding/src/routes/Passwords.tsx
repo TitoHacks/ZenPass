@@ -100,8 +100,7 @@ function Passwords() {
       if (passwordComponents.length == 0) {
         passwordComponents = [
           <p className="text-gray-500 justify-self-center">
-            Añade tu primera contraseñas pulsando el boton "+" en la parte
-            inferior derecha.
+            No se encontraron contraseñas.
           </p>,
         ];
       }

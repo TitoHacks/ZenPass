@@ -109,14 +109,15 @@ function DashboardTable(props: any) {
     switch (columnKey) {
       case "status":
         return (
-          <Chip
+            <Chip
             className="capitalize"
             color={statusColorMap[entry.status!]}
             size="sm"
             variant="flat"
-          >
+            >
             {cellValue}
           </Chip>
+
         );
       case "actions":
         return (

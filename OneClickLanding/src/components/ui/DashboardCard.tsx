@@ -23,7 +23,6 @@ function DashboardCard(props: any) {
           <h2 className="text-accentColorText text-sm">Safe Passwords</h2>
           <p className="font-bold text-white text-xl">{statusData.safeCount}</p>
         </div>
-        <div></div>
       </div>
       <div className="flex flex-row mx-4">
         <CircularProgress
@@ -42,7 +41,6 @@ function DashboardCard(props: any) {
           <h2 className="text-accentColorText text-sm">Weak Passwords</h2>
           <p className="font-bold text-white text-xl">{statusData.weakCount}</p>
         </div>
-        <div></div>
       </div>
       <div className="flex flex-row mx-4">
         <CircularProgress
@@ -63,7 +61,6 @@ function DashboardCard(props: any) {
             {statusData.reusedCount}
           </p>
         </div>
-        <div></div>
       </div>
       <div className="flex flex-row mx-4">
         <CircularProgress
@@ -84,7 +81,6 @@ function DashboardCard(props: any) {
             {statusData.leakedCount}
           </p>
         </div>
-        <div></div>
       </div>
     </div>
   );
