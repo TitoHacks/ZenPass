@@ -8,7 +8,7 @@ import {
 import { deleteEntry } from "@/utils/utils";
 import { toast } from "sonner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import { faCircleInfo, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 async function handleDelete(passwordId: string, deleteMethod: any) {
   let message = await deleteEntry(passwordId);
@@ -46,6 +46,7 @@ function PasswordDeleteDialog(props: any) {
                 handleDelete(props.passwordId, props.deletedMethod);
               }}
               onPress={onClose}
+              startContent={<FontAwesomeIcon icon={faTrash} />}
             >
               Eliminar
             </Button>

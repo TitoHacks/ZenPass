@@ -16,6 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFile,
   faFileArrowDown,
+  faFloppyDisk,
   faGear,
   faKey,
   faPlus,
@@ -115,7 +116,7 @@ function Profile() {
               </AccordionItem>
             </Accordion>
             <div className="w-full flex flex-row justify-end">
-              <Button variant="flat" color="success" className="mr-2">
+              <Button variant="flat" color="success" className="mr-2" startContent={<FontAwesomeIcon icon={faFloppyDisk} />}>
                 Guardar cambios
               </Button>
             </div>

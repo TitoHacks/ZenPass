@@ -18,7 +18,7 @@ const SideNavbar = () => {
 
       <ul className='flex flex-col justify-evenly items-start h-full'>
       
-        <li className='w-full'><a href="#"><img src="/public/zenpass-favicon-color.png" className='w-min'></img></a></li>
+        <li className='w-full'><a href="/Dashboard"><img src="/public/zenpass-favicon-color.png" className='w-min'></img></a></li>
         <Divider className="my-1 bg-accentColorText " />
         <li className='group w-full hover:cursor-pointer'><a href="/Dashboard" className='transition-all font-semibold ease-in-out duration-150 delay-100 text-white group-hover:text-accentColor'><FontAwesomeIcon icon={faHouse} /> Home</a></li>
         <li className='group w-full hover:cursor-pointer'><a href="/Passwords" className='transition-all font-semibold ease-in-out duration-150 delay-100 text-white group-hover:text-accentColor'><FontAwesomeIcon icon={faLock} /> Passwords</a></li>

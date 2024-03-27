@@ -20,6 +20,8 @@ import {
   Button,
 } from "@nextui-org/react";
 import { toast } from "sonner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 function PasswordDialog() {
   const [loading, setLoading] = useState(false);
 
@@ -171,7 +173,7 @@ function PasswordDialog() {
                   <Button color="danger" variant="light" onPress={onClose}>
                     Cancelar
                   </Button>
-                  <Button color="primary" type="submit" isLoading={loading}>
+                  <Button color="primary" type="submit" isLoading={loading} startContent={<FontAwesomeIcon icon={faCheck} />}>
                     Añadir
                   </Button>
                 </div>
