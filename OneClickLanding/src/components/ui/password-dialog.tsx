@@ -75,7 +75,7 @@ function PasswordDialog() {
       {(onClose) => (
         <>
           <ModalHeader className="flex flex-col gap-1">
-            Nueva credencial
+            Add credential
           </ModalHeader>
           <ModalBody>
             <Form {...passwordForm}>
@@ -90,10 +90,10 @@ function PasswordDialog() {
                   name="title"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Titulo</FormLabel>
+                      <FormLabel>Title</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="Cuenta de Facebook"
+                          placeholder="Facebook account"
                           type="text"
                           {...field}
                         />
@@ -107,7 +107,7 @@ function PasswordDialog() {
                   name="username"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email / usuario</FormLabel>
+                      <FormLabel>Email / Username</FormLabel>
                       <FormControl>
                         <Input
                           placeholder="example@example.com"
@@ -124,7 +124,7 @@ function PasswordDialog() {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Contraseña</FormLabel>
+                      <FormLabel>Password</FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Contraseñasupersegura123"
@@ -164,17 +164,17 @@ function PasswordDialog() {
                           onCheckedChange={field.onChange}
                         ></Checkbox>
                       </FormControl>
-                      <FormLabel> Es una web?</FormLabel>
+                      <FormLabel> Is Web?</FormLabel>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
                 <div className="flex flex-row justify-end">
                   <Button color="danger" variant="light" onPress={onClose}>
-                    Cancelar
+                    Cancel
                   </Button>
                   <Button color="primary" type="submit" isLoading={loading} startContent={<FontAwesomeIcon icon={faCheck} />}>
-                    Añadir
+                    Add
                   </Button>
                 </div>
               </form>

@@ -12,7 +12,7 @@ router.post("/newEntry",async(request,response)=>{
     try{
         console.log(request.body);
         const newEntry = await Entry.create(request.body);
-        response.status(200).send("Contraseña añadida correctamente");
+        response.status(200).send("Credential added successfully");
        
     }catch(error){
         console.log(error);
@@ -40,9 +40,9 @@ router.post("/deleteEntry",async(request,response)=>{
     try{
         let entryId = request.body.passwordId;
         await Entry.deleteOne({_id:entryId});
-        response.status(200).send("Credencial eliminada correctamente");
+        response.status(200).send("Credential deleted successfully");
     }catch(error){
-        response.status(500).send("No se ha podido eliminar la credencial: " + error);
+        response.status(500).send("Can't delete credential: " + error);
     }
     
 
@@ -69,7 +69,7 @@ router.get("/checkLeak",async(request,response)=>{
             console.log(errorMsg);
             response.status(301).send(errorMsg);
         }else{
-            response.status(500).send("No se ha proporcionado un email!");
+            response.status(500).send("Leaked email address can't be empty");
         }
 
         
@@ -98,7 +98,7 @@ router.post("/updateEntry",async(request,response)=>{
     try{
         console.log(request.body);
         const updatedEntry = await Entry.findByIdAndUpdate(request.body._id,request.body);
-        response.status(200).send("Entry updated successfully!");
+        response.status(200).send("Entry updated successfully");
     }catch(error){
         console.log(error);
         response.status(500).send("Error updating entry");
@@ -110,10 +110,10 @@ router.post("/deleteAllData",async(request,response)=>{
 
     try{
         await Entry.deleteMany({ownerId:request.body._id});
-        response.status(200).send("Datos eliminados correctamente!");
+        response.status(200).send("Data deleted successfully");
     }catch(error){
         console.log(error);
-        response.status(500).send("Error eliminando datos");
+        response.status(500).send("Error deleting data");
     }
 
 })

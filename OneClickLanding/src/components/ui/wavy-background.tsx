@@ -88,7 +88,7 @@ export const WavyBackground = ({
     ctx.fillStyle = backgroundFill || "black";
     ctx.globalAlpha = waveOpacity || 0.5;
     ctx.fillRect(0, 0, w, h);
-    drawWave(5);
+    drawWave(3);
     animationId = requestAnimationFrame(render);
   };
  
@@ -107,7 +107,7 @@ export const WavyBackground = ({
       )}
     >
       <canvas
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 w-full h-screen"
         ref={canvasRef}
         id="canvas"
       ></canvas>

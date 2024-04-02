@@ -17,13 +17,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile, faPlus } from "@fortawesome/free-solid-svg-icons";
 import CsvDialog from "@/components/ui/csv-dialog";
 
+
+
+
 function Dashboard() {
   const [open, setOpen] = useState(false);
   const [openCsv, setOpenCsv] = useState(false);
   const [deleted, setDeleted] = useState(false);
   const [updated, setUpdated] = useState(false);
   const [passwordEntries, setPasswordEntries] = useState<JSX.Element[]>([]);
-
+ 
   //Obtiene las credenciales del usuario actual, siempre que las variables entre corchetes cambien.
   useEffect(() => {
     async function fetchData() {
@@ -34,6 +37,10 @@ function Dashboard() {
     fetchData();
   }, [open, deleted, openCsv, updated]);
 
+
+ 
+
+
   return (
     <>
       <SideNavbar></SideNavbar>
@@ -41,7 +48,7 @@ function Dashboard() {
         <ScorePanel passwordEntries={passwordEntries}></ScorePanel>
         <div className="ml-32 py-12 h-screen w-10/12 flex flex-col items-center">
           <h1 className="text-gray-200 font-bold text-2xl ml-10 self-start">
-            Bienvenido{" "}
+            Welcome{" "}
             <span className="text-accentColor">
               {sessionStorage.getItem("username")}
             </span>
@@ -52,6 +59,7 @@ function Dashboard() {
             updatedMethod={setUpdated}
             updated={updated}
             passwordEntries={passwordEntries}
+            deleted={deleted}
           />
         </div>
         <div className="absolute bottom-4 right-4">
@@ -91,7 +99,7 @@ function Dashboard() {
         </div>
         <Modal
           isOpen={open}
-          onOpenChange={setOpen}
+          onOpenChange={function(){setOpen(!open)}}
           isDismissable={false}
           isKeyboardDismissDisabled={true}
         >
@@ -99,7 +107,7 @@ function Dashboard() {
         </Modal>
         <Modal
           isOpen={openCsv}
-          onOpenChange={setOpenCsv}
+          onOpenChange={function(){setOpenCsv(!openCsv)}}
           isDismissable={false}
           isKeyboardDismissDisabled={true}
         >

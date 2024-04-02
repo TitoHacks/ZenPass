@@ -41,6 +41,7 @@ import {
 import { Label } from "@radix-ui/react-label";
 import LeakComponent from "@/components/ui/leakComponent";
 import { toast } from "sonner";
+import InfoSheet from "@/components/ui/infoSheet";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   safe: "success",
@@ -100,7 +101,7 @@ function Passwords() {
       if (passwordComponents.length == 0) {
         passwordComponents = [
           <p className="text-gray-500 justify-self-center">
-            No se encontraron contraseñas.
+            No credentials found.
           </p>,
         ];
       }
@@ -136,7 +137,7 @@ function Passwords() {
         <div className="ml-40 pt-12 h-full w-full flex flex-col items-center ">
           <div className="self-start flex flex-row n w-2/4 justify-between pb-4">
             <h1 className="text-gray-200 font-bold text-2xl ml-10 self-start">
-              Contraseñas
+              Credentials
             </h1>
             <Input
               id="searchBar"
@@ -147,7 +148,6 @@ function Passwords() {
               onKeyUp={function () {
                 setSearched(!searched);
               }}
-              isClearable
               radius="lg"
               placeholder="Type to search..."
               startContent={<FontAwesomeIcon icon={faMagnifyingGlass} />}
@@ -211,97 +211,7 @@ function Passwords() {
         </Modal>
 
         <Sheet open={detail} key={passwordItem._id} onOpenChange={setDetail}>
-          <SheetContent>
-            <SheetHeader>
-              <div className="flex flex-row justify-between items-center mt-4">
-                <Image
-                  src={passwordItem.favicon}
-                  fallbackSrc="public/defaultIcon.png"
-                  className="w-16 h-max"
-                />
-                <div className="flex flex-col ml-4 w-full">
-                  <SheetTitle className="truncate max-w-64">
-                    {passwordItem.title}
-                  </SheetTitle>
-                  <SheetDescription className="truncate max-w-60">
-                    <a href={passwordItem.url} target="_blank">
-                      {passwordItem.url}
-                    </a>
-                  </SheetDescription>
-                </div>
-                <Chip
-                  className="capitalize self-start"
-                  color={statusColorMap[passwordItem.status]}
-                  size="sm"
-                  variant="flat"
-                >
-                  {passwordItem.status}
-                </Chip>
-              </div>
-            </SheetHeader>
-            <Divider className="my-4" />
-            <div>
-              <br />
-              <Label className="text-sm text-gray-400">Usuario</Label>
-              <p className="text-lg truncate">{passwordItem.username}</p>
-              <br />
-              <Label className="text-sm text-gray-400">Contraseña</Label>
-              <br />
-              <div className="flex flex-row justify-evenly">
-                <input
-                  className="text-lg w-min bg-transparent"
-                  readOnly
-                  disabled
-                  autoComplete="false"
-                  id="entryPassword"
-                  type="password"
-                  value={passwordItem.password}
-                ></input>
-                <div className="flex flex-row w-full justify-evenly">
-                  <Button
-                    variant="flat"
-                    color="default"
-                    onClick={showPassword}
-                    isIconOnly={true}
-                  >
-                    <FontAwesomeIcon icon={viewIcon} />
-                  </Button>
-                  <Button
-                    variant="flat"
-                    color="default"
-                    onClick={copyPassword}
-                    isIconOnly={true}
-                  >
-                    <FontAwesomeIcon icon={faCopy} />
-                  </Button>
-                </div>
-              </div>
-
-              <div></div>
-
-              <br />
-              <Label className="text-sm text-gray-400">URL</Label>
-              <a href={passwordItem.url} target="_blank">
-                <p className="text-lg truncate">{passwordItem.url}</p>
-              </a>
-              <br />
-              <Label className="text-sm text-gray-400">Strength</Label>
-
-              <Progress
-                className="pt-4"
-                size="sm"
-                aria-label="Loading..."
-                color="primary"
-                value={passwordItem.scorePoints}
-                label={passwordItem.score}
-                showValueLabel={true}
-              />
-              <br />
-              <Divider className="my-4" />
-              <Label className="text-sm text-gray-400">Leaks</Label>
-              <LeakComponent entry={passwordItem}></LeakComponent>
-            </div>
-          </SheetContent>
+          <InfoSheet passwordItem={passwordItem} showPassword={showPassword} copyPassword={copyPassword} viewIcon={viewIcon} statusColor={statusColorMap[passwordItem.status]}></InfoSheet>
         </Sheet>
       </div>
     </>

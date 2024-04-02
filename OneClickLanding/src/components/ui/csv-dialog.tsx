@@ -26,15 +26,15 @@ function CsvDialog() {
       {(onClose) => (
         <>
           <ModalHeader className="flex flex-col gap-1">
-            Importar contraseñas (.csv)
+            Import credentials (.csv)
           </ModalHeader>
           <ModalBody className="p-4">
             <Alert>
               <FontAwesomeIcon icon={faCircleInfo} />
-              <AlertTitle>Advertencia!</AlertTitle>
-              <AlertDescription>
-                A modo de disminuir el tiempo de procesado de las contraseñas,
-                no se buscaran leaks automaticamente.
+              <AlertTitle>Warning!</AlertTitle>
+              <AlertDescription> 
+                In order to reduce credential processing time,
+                leaks will not be searched automatically.
               </AlertDescription>
             </Alert>
             <CSVReader
@@ -57,7 +57,7 @@ function CsvDialog() {
                 size="sm"
                 aria-label="Loading..."
                 value={loadValue}
-                label="Importando..."
+                label="Importing..."
               />
             </div>
           </ModalBody>

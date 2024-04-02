@@ -1,5 +1,6 @@
 import React from "react";
 import { WavyBackground } from "./wavy-background";
+import { redirectDashboard } from '@/utils/utils';
 
 const CustomNavbar = () => {
   return (
@@ -13,7 +14,7 @@ const CustomNavbar = () => {
             <span className="sr-only">OneClick Optimizer</span>
             <img
               className="h-8 w-auto"
-              src="https://oneclickoptimizer.com/Images/logo/logo.png"
+              src="public/zenpass-favicon-color.png"
               alt=""
             />
           </a>
@@ -42,21 +43,21 @@ const CustomNavbar = () => {
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
           <a href="#" className="text-sm font-semibold leading-6 text-white">
-            Product
+            Home
           </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-white">
+          <a href="#features" className="text-sm font-semibold leading-6 text-white">
             Features
           </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-white">
-            Marketplace
+          <a href="#howitworks" className="text-sm font-semibold leading-6 text-white">
+            How it works
           </a>
-          <a href="#" className="text-sm font-semibold leading-6 text-white">
-            Company
+          <a href="#faq" className="text-sm font-semibold leading-6 text-white">
+            FAQ
           </a>
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="text-sm font-semibold leading-6 text-white">
-            Log in <span aria-hidden="true">&rarr;</span>
+          <a onClick={redirectDashboard} className="text-sm font-semibold leading-6 text-white hover:cursor-pointer">
+            Dashboard <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
       </nav>

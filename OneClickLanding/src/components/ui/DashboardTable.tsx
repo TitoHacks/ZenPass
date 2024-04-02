@@ -42,6 +42,7 @@ import LeakComponent from "./leakComponent";
 import { toast } from "sonner";
 import { Image } from "@nextui-org/react";
 import { editData } from "@/utils/utils";
+import InfoSheet from "./infoSheet";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   safe: "success",
@@ -80,7 +81,7 @@ function DashboardTable(props: any) {
     const end = start + rowsPerPage;
 
     return tableRows.slice(start, end);
-  }, [page, tableRows]);
+  }, [page, tableRows,open]);
 
   //Metodo que muestra la contraseña al hacer click en el boton con icono de ojo
   function showPassword() {
@@ -208,110 +209,21 @@ function DashboardTable(props: any) {
       </Table>
       <Modal
         isOpen={open}
-        onOpenChange={setOpen}
+        onOpenChange={function(){setOpen(!open)}}
         isDismissable={false}
         isKeyboardDismissDisabled={true}
       >
         <PasswordDeleteDialog
           deletedMethod={props.deletedMethod}
           passwordId={passwordId}
+          deleted={props.deleted}
         ></PasswordDeleteDialog>
       </Modal>
-      <Sheet open={detail} key={passwordItem._id} onOpenChange={setDetail}>
-        <SheetContent>
-          <SheetHeader>
-            <div className="flex flex-row justify-between items-center mt-4">
-              <Image
-                src={passwordItem.favicon}
-                fallbackSrc="public/defaultIcon.png"
-                className="w-16 h-max"
-              />
-              <div className="flex flex-col ml-4 w-full">
-                <SheetTitle className="truncate max-w-64">
-                  {passwordItem.title}
-                </SheetTitle>
-                <SheetDescription className="truncate max-w-60">
-                  <a href={passwordItem.url} target="_blank">
-                    {passwordItem.url}
-                  </a>
-                </SheetDescription>
-              </div>
-              <Chip
-                className="capitalize self-start"
-                color={statusColorMap[passwordItem.status]}
-                size="sm"
-                variant="flat"
-              >
-                {passwordItem.status}
-              </Chip>
-            </div>
-          </SheetHeader>
-          <Divider className="my-4" />
-          <div>
-            <br />
-            <Label className="text-sm text-gray-400">Usuario</Label>
-            <p className="text-lg truncate">{passwordItem.username}</p>
-            <br />
-            <Label className="text-sm text-gray-400">Contraseña</Label>
-            <br />
-            <div className="flex flex-row justify-evenly">
-              <input
-                className="text-lg w-min bg-transparent"
-                readOnly
-                disabled
-                autoComplete="false"
-                id="entryPassword"
-                type="password"
-                value={passwordItem.password}
-              ></input>
-              <div className="flex flex-row w-full justify-evenly">
-                <Button
-                  variant="flat"
-                  color="default"
-                  onClick={showPassword}
-                  isIconOnly={true}
-                >
-                  <FontAwesomeIcon icon={viewIcon} />
-                </Button>
-                <Button
-                  variant="flat"
-                  color="default"
-                  onClick={copyPassword}
-                  isIconOnly={true}
-                >
-                  <FontAwesomeIcon icon={faCopy} />
-                </Button>
-              </div>
-            </div>
-
-            <div></div>
-
-            <br />
-            <Label className="text-sm text-gray-400">URL</Label>
-            <a href={passwordItem.url} target="_blank">
-              <p className="text-lg truncate">{passwordItem.url}</p>
-            </a>
-            <br />
-            <Label className="text-sm text-gray-400">Strength</Label>
-
-            <Progress
-              className="pt-4"
-              size="sm"
-              aria-label="Loading..."
-              color="primary"
-              value={passwordItem.scorePoints}
-              label={passwordItem.score}
-              showValueLabel={true}
-            />
-            <br />
-            <Divider className="my-4" />
-            <Label className="text-sm text-gray-400">Leaks</Label>
-            <LeakComponent entry={passwordItem}></LeakComponent>
-          </div>
-        </SheetContent>
+      <Sheet open={detail} key={passwordItem._id} onOpenChange={function(){setDetail(!detail)}}>
+        <InfoSheet passwordItem={passwordItem} showPassword={showPassword} copyPassword={copyPassword} viewIcon={viewIcon} statusColor={statusColorMap[passwordItem.status]}></InfoSheet>
       </Sheet>
 
-      <Sheet open={edit} key={passwordItem._id + "2"} onOpenChange={setEdit}>
+      <Sheet open={edit} key={passwordItem._id + "2"} onOpenChange={function(){setEdit(!edit)}}>
         <SheetContent>
           <SheetHeader>
             <div className="flex flex-row justify-between items-center mt-4">
@@ -341,7 +253,7 @@ function DashboardTable(props: any) {
           <Divider className="my-4" />
           <div>
             <br />
-            <Label className="text-sm text-gray-400">Usuario</Label>
+            <Label className="text-sm text-gray-400">Username</Label>
             <Input
               className="text-lg"
               id="usernameInput"
@@ -349,7 +261,7 @@ function DashboardTable(props: any) {
               defaultValue={passwordItem.username}
             ></Input>
             <br />
-            <Label className="text-sm text-gray-400">Contraseña</Label>
+            <Label className="text-sm text-gray-400">Password</Label>
             <br />
             <div className="flex flex-row justify-evenly">
               <Input
@@ -404,7 +316,7 @@ function DashboardTable(props: any) {
               color="warning"
               startContent={<FontAwesomeIcon icon={faFloppyDisk} />}
             >
-              Guardar cambios
+              Save changes
             </Button>
           </div>
         </SheetContent>

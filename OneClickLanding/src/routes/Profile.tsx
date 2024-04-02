@@ -43,7 +43,7 @@ function Profile() {
       <div className="ml-6 flex flex-row justify-between h-full bg-backgroundColor w-12/12 dark">
         <div className="ml-32 py-12 h-screen w-10/12 flex flex-col items-center">
           <h1 className="text-gray-200 font-bold text-2xl ml-10 self-start">
-            Configuracion
+            Settings
           </h1>
           <div className="self-start ml-10 w-full">
             <Divider className="my-1 bg-accentColorText " />
@@ -51,12 +51,12 @@ function Profile() {
               <AccordionItem
                 className="text-white text-lg"
                 key="1"
-                title="Generador de contraseñas"
+                title="Password Generator"
                 indicator={<FontAwesomeIcon icon={faKey} />}
               >
                 <div className="py-4 flex flex-row justify-between ">
                   <label className="text-gray-300">
-                    Cantidad de caracteres
+                    Character count
                   </label>
                   <Input type="number" className="w-2/4"></Input>
                 </div>
@@ -68,11 +68,11 @@ function Profile() {
               <AccordionItem
                 className="text-white text-lg"
                 key="2"
-                title="Otros ajustes"
+                title="Other settings"
                 indicator={<FontAwesomeIcon icon={faGear} />}
               >
                 <div className="py-4 flex flex-row justify-between ">
-                  <label className="text-gray-300">Exportar datos</label>
+                  <label className="text-gray-300">Export data</label>
                   <Button
                     variant="flat"
                     color="primary"
@@ -82,15 +82,15 @@ function Profile() {
                       exportCSV(setLoadingExport);
                     }}
                   >
-                    Exportar datos
+                    Export data
                   </Button>
                 </div>
               </AccordionItem>
               <AccordionItem
                 className="text-white text-lg"
                 key="3"
-                title="Ajustes peligrosos"
-                subtitle="No tocar si carece de los conocimientos necesarios."
+                title="Dangerous settings"
+                subtitle="Do not touch unless you have the right knowledge."
                 indicator={<FontAwesomeIcon icon={faTriangleExclamation} />}
                 disableIndicatorAnimation={true}
               >
@@ -101,7 +101,7 @@ function Profile() {
                   <Input type="number" className="w-2/4"></Input>
                 </div>
                 <div className="py-4 flex flex-row justify-between ">
-                  <label className="text-gray-300">Borrar datos</label>
+                  <label className="text-gray-300">Delete data</label>
                   <Button
                     variant="flat"
                     color="danger"
@@ -110,14 +110,14 @@ function Profile() {
                     }}
                     startContent={<FontAwesomeIcon icon={faTrash} />}
                   >
-                    Eliminar datos
+                    Delete data
                   </Button>
                 </div>
               </AccordionItem>
             </Accordion>
             <div className="w-full flex flex-row justify-end">
               <Button variant="flat" color="success" className="mr-2" startContent={<FontAwesomeIcon icon={faFloppyDisk} />}>
-                Guardar cambios
+                Save changes
               </Button>
             </div>
           </div>
@@ -132,17 +132,16 @@ function Profile() {
             {(onClose) => (
               <>
                 <ModalHeader className="flex flex-col gap-1">
-                  ¿Quieres eliminar tus datos?
+                  Delete all your data?
                 </ModalHeader>
                 <ModalBody>
                   <p>
-                    Si decides eliminarlos, todas las credenciales almacenadas
-                    se eliminaran y no se podran recuperar.
+                    Once deleted, all your existing data will be gone. Are you sure?
                   </p>
                 </ModalBody>
                 <ModalFooter>
                   <Button color="danger" variant="light" onPress={onClose}>
-                    Cancelar
+                    Cancel
                   </Button>
                   <Button
                     color="primary"
@@ -154,7 +153,7 @@ function Profile() {
                       handleDelete(onClose, setLoading);
                     }}
                   >
-                    Eliminar
+                    Yes, delete it!
                   </Button>
                 </ModalFooter>
               </>

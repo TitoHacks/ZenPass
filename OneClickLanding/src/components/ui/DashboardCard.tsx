@@ -44,26 +44,6 @@ function DashboardCard(props: any) {
       </div>
       <div className="flex flex-row mx-4">
         <CircularProgress
-          aria-label="reusedPocent"
-          classNames={{
-            indicator: "stroke-accentColor",
-            value: "font-semibold text-white",
-          }}
-          className="text-accentColorText mr-4"
-          size="lg"
-          value={statusData.reusedPorcent}
-          color="danger"
-          showValueLabel={true}
-        />
-        <div className=" flex flex-col align-start">
-          <h2 className="text-accentColorText text-sm">Reused Passwords</h2>
-          <p className="font-bold text-white text-xl">
-            {statusData.reusedCount}
-          </p>
-        </div>
-      </div>
-      <div className="flex flex-row mx-4">
-        <CircularProgress
           aria-label="leakedPocent"
           classNames={{
             indicator: "stroke-accentColor",

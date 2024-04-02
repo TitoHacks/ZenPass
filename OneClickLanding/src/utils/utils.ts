@@ -8,6 +8,18 @@ import { mkConfig, generateCsv, download } from "export-to-csv";
 const ivKey = forge.random.getBytesSync(16);
 const csvConfig = mkConfig({ useKeysAsHeaders: true, filename: "ZenPass Passwords", quoteStrings:false });
 
+
+
+export  function  redirectDashboard(){
+  if(sessionStorage.getItem("PassnovaUID") != null){
+    window.location.href = "/dashboard";
+  }else{
+    window.location.href = "/login";
+  }
+  
+}
+
+
 export function hashPassword(password:string):string{
 
     return bcrypt.hashSync(password,10);
@@ -44,6 +56,7 @@ export async function storeDerivateKey(originalPassword:string, salt:string, ite
 export function logout(){
     sessionStorage.removeItem("derivatedKey");
     sessionStorage.removeItem("PassnovaUID");
+    sessionStorage.removeItem("username");
     window.location.href = "/";
 }
 
@@ -166,7 +179,7 @@ export async function exportCSV(setLoadingExport:any){
   let generatedCsv = generateCsv(csvConfig)(formatedEntries);
   download(csvConfig)(generatedCsv);
   setLoadingExport(false);
-  toast.success("Data exported successfully!");
+  toast.success("Data exported successfully");
 
 }
 
@@ -207,13 +220,13 @@ export async function importPasswords(data:any, fileInfo:any, originalFile:any, 
     }
    let serverData = await storeEntry(entryObj,true);
    if(serverData.status ==500){
-      toast.error("Error al importar contraseña");
+      toast.error("Error importing credentials");
    }
    console.log("Progreso Actual: " + (i+1) * 100 / csvKeys.length + "%")
    setLoadValue((i+1) * 100 / csvKeys.length);
   }
   onClose();
-  toast.success("Contraseñas importadas correctamente");
+  toast.success("Credentials imported successfully");
   
 }
 

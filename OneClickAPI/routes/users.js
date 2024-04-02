@@ -8,9 +8,9 @@ router.post("/newUser",async(request,response)=>{
         console.log(request.body);
         if(await User.exists({username:request.body["username"]}) == null && await User.exists({email:request.body["email"]}) == null){
             const newUser = await User.create(request.body);
-            response.status(200).send("Usuario regristrado correctamente");
+            response.status(200).send("User registered successfully");
         }else{
-            response.status(401).send("El nombre de usuario o email esta en uso");
+            response.status(401).send("Mail or usename already in use");
 
         }
        
@@ -32,10 +32,10 @@ router.post("/login",async(request,response)=>{
             if(matched){
                 response.status(200).send(JSON.stringify(userObj[0]));
             }else{
-                response.status(401).send("Usuario o contraseña incorrectos");
+                response.status(401).send("Incorrect username / password combination");
             }
         }else{
-            response.status(401).send("Usuario no existe");
+            response.status(401).send("User not founc");
         }
     }catch(error){
         console.log(error);

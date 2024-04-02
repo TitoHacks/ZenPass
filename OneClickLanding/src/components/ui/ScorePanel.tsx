@@ -32,13 +32,13 @@ function getScoreText(score: number): Object {
   let color = "";
 
   if (score >= 0 && score <= 49) {
-    text = "Bajo";
+    text = "Low";
     color = "danger";
   } else if (score >= 50 && score <= 74) {
-    text = "Medio";
+    text = "Medium";
     color = "warning";
   } else if (score >= 75 && score <= 100) {
-    text = "Alto";
+    text = "High";
     color = "success";
   }
 

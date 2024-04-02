@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo, faTrash } from "@fortawesome/free-solid-svg-icons";
 
-async function handleDelete(passwordId: string, deleteMethod: any) {
+async function handleDelete(passwordId: string, deleteMethod: any, deleted:any) {
   let message = await deleteEntry(passwordId);
   toast(
     <p>
@@ -18,7 +18,7 @@ async function handleDelete(passwordId: string, deleteMethod: any) {
       {message}
     </p>
   );
-  deleteMethod();
+  deleteMethod(!deleted);
 }
 
 function PasswordDeleteDialog(props: any) {
@@ -27,28 +27,27 @@ function PasswordDeleteDialog(props: any) {
       {(onClose) => (
         <>
           <ModalHeader className="flex flex-col gap-1">
-            ¿Quieres eliminar esta credencial?
+            Delete credential ?
           </ModalHeader>
           <ModalBody>
             <p>
-              Si decides eliminar esta credencial, no se podrá recuperar y sera
-              eliminada para siempre.
+              Once deleted, it will be imposible to recover.
             </p>
           </ModalBody>
           <ModalFooter>
             <Button color="danger" variant="light" onPress={onClose}>
-              Cancelar
+              Cancel
             </Button>
             <Button
               color="primary"
               onClick={function () {
                 onClose;
-                handleDelete(props.passwordId, props.deletedMethod);
+                handleDelete(props.passwordId, props.deletedMethod,props.deleted);
               }}
               onPress={onClose}
               startContent={<FontAwesomeIcon icon={faTrash} />}
             >
-              Eliminar
+              Yes, delete it!
             </Button>
           </ModalFooter>
         </>
