@@ -8,7 +8,7 @@ import { faLock,faDatabase, faArrowsRotate,faChartColumn,faChartPie,faUserCheck 
 
 const Features = () => {
   return (
-    <div id="features" className="flex flex-col items-center bg-black">
+    <div id="features" className="pb-64 flex flex-col items-center bg-black">
       <h2 className="text-gray-300 font-semibold">Features</h2>
       <div className='flex flex-row flex-wrap justify-evenly dark p-4'>
        <FeatureCard featureTitle="End to end encryption "  category="Security" icon={faLock} description="ZenPass uses a military grade End to end encryption system, guaranteeing your data protection. Even if an attacker breached our sistems, it would be imposible to decrypt it."></FeatureCard>

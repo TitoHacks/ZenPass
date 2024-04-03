@@ -4,6 +4,7 @@ import { passwordStrength } from 'check-password-strength'
 import getRootDomain from 'get-root-domain';
 import { toast } from 'sonner';
 import { mkConfig, generateCsv, download } from "export-to-csv";
+import { FormEvent } from 'react';
 
 const ivKey = forge.random.getBytesSync(16);
 const csvConfig = mkConfig({ useKeysAsHeaders: true, filename: "ZenPass Passwords", quoteStrings:false });
@@ -476,4 +477,26 @@ export function getStatusCount(passwordEntries:any[]):Status{
     return dataObj;
 
 
+}
+//La funcion obtiene los datos del formulario, y realiza una peticion post a un webhook alojado en un servidor privado con n8n (Herramienta de automatizacion)
+//El webhook obtiene los datos del formulario, y envia un correo al mail interno de zenpass (zenpassmail@gmail.com:ZenPassMail2024)
+export async function sendMail(e:FormEvent){
+
+  e.preventDefault();
+  let email = (document.getElementById("emailText") as HTMLInputElement).value;
+  let message = (document.getElementById("messageText") as HTMLInputElement).value;
+  let data = new FormData();
+  data.append("email",email);
+  data.append("message",message);
+  console.log(email);
+  console.log(message);
+
+  let response = await fetch("http://141.145.217.56:5678/webhook/79c1434a-b94e-474e-bd4e-6def3c77696f",{
+    method:'POST',
+    mode:'no-cors',
+    body: data,
+  })
+
+  toast.success("Message sent successfully");
+  
 }

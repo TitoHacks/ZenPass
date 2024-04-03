@@ -9,13 +9,13 @@ import 'react-vertical-timeline-component/style.min.css';
 
 const HowItWorks = () => {
   return (
-    <div id="howitworks" className="flex flex-col items-center bg-black">
+    <div id="howitworks" className="pb-64 flex flex-col items-center bg-black">
       <h2 className="text-gray-300 font-semibold">How it works</h2>
       <div className='flex flex-row flex-wrap justify-evenly dark p-4'>
         <VerticalTimeline lineColor="rgba(249, 118, 157,0.6)">
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            contentStyle={{ background: '#141414', color: '#fff' }}
+            contentStyle={{ background: '#0d0e17', color: '#fff' }}
             contentArrowStyle={{ borderRight: '7px solid  #101010' }}
             iconStyle={{ background: '#94465d', color: '#fff' }}
             icon={<FontAwesomeIcon icon={faUser}></FontAwesomeIcon>}
@@ -27,7 +27,7 @@ const HowItWorks = () => {
           </VerticalTimelineElement>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            contentStyle={{ background: '#141414', color: '#fff' }}
+            contentStyle={{ background: '#0d0e17', color: '#fff' }}
             contentArrowStyle={{ borderRight: '7px solid  #101010' }}
             iconStyle={{ background: '#94465d', color: '#fff' }}
             icon={<FontAwesomeIcon icon={faKey}></FontAwesomeIcon>}
@@ -39,7 +39,7 @@ const HowItWorks = () => {
           </VerticalTimelineElement>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            contentStyle={{ background: '#141414', color: '#fff' }}
+            contentStyle={{ background: '#0d0e17', color: '#fff' }}
             contentArrowStyle={{ borderRight: '7px solid  #101010' }}
             iconStyle={{ background: '#94465d', color: '#fff' }}
             icon={<FontAwesomeIcon icon={faMagnifyingGlassChart}></FontAwesomeIcon>}
@@ -51,7 +51,7 @@ const HowItWorks = () => {
           </VerticalTimelineElement>
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            contentStyle={{ background: '#141414', color: '#fff' }}
+            contentStyle={{ background: '#0d0e17', color: '#fff' }}
             contentArrowStyle={{ borderRight: '7px solid  #101010' }}
             iconStyle={{ background: '#94465d', color: '#fff' }}
             icon={<FontAwesomeIcon icon={faChartColumn}></FontAwesomeIcon>}

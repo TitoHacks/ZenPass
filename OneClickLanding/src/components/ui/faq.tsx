@@ -8,7 +8,7 @@ import {Code} from "@nextui-org/react";
 
 const Faq = () => {
   return (
-    <div id="faq" className="py-4 flex flex-col items-center bg-black dark px-28">
+    <div id="faq" className="py-4 pb-32 flex flex-col items-center bg-black dark px-28">
       <h2 className="text-gray-300 font-semibold">Frequently Asked Questions</h2>
 
       <Accordion>
