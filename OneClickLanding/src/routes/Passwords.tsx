@@ -210,7 +210,7 @@ function Passwords() {
           <CsvDialog></CsvDialog>
         </Modal>
 
-        <Sheet open={detail} key={passwordItem._id} onOpenChange={setDetail}>
+        <Sheet open={detail} key={passwordItem._id} onOpenChange={function(){setDetail(!detail); setViewIcon(faEye);setShown(false)}}>
           <InfoSheet passwordItem={passwordItem} showPassword={showPassword} copyPassword={copyPassword} viewIcon={viewIcon} statusColor={statusColorMap[passwordItem.status]}></InfoSheet>
         </Sheet>
       </div>

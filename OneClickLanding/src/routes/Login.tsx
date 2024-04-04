@@ -17,6 +17,8 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { storeDerivateKey } from "@/utils/utils";
 import { MultiStepLoader as Loader } from "../components/ui/multi-step-loader";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 const formSchema = z.object({
   email: z.string().min(7, {

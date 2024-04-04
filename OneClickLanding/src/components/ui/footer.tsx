@@ -37,8 +37,8 @@ const Footer = () => {
           <div className="flex flex-col justify-start w-1/4">
               <h2 className="text-lg text-gray-200">Contact us</h2>
               <form onSubmit={(event)=>sendMail(event)}>
-                <Input id='emailText' errorMessage="Please, type a valid email address" isRequired={true} type="email"  className="mb-4" label="email" placeholder="Example@example.com"></Input>
-                <Textarea id='messageText' errorMessage="Please, type your message" isRequired={true} className="mb-4" label="Message" placeholder="Enter your message"></Textarea>
+                <Input id='emailText' isRequired={true} type="email"  className="mb-4" label="email" placeholder="Example@example.com"></Input>
+                <Textarea id='messageText' isRequired={true} className="mb-4" label="Message" placeholder="Enter your message"></Textarea>
                 <Button type="submit"  variant="flat" color="default" startContent={<FontAwesomeIcon icon={faPaperPlane} />}>Send</Button>
               </form>
           </div>

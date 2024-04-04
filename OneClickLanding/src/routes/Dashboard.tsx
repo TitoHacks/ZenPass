@@ -54,6 +54,7 @@ function Dashboard() {
             </span>
           </h1>
           <DashboardCard passwordEntries={passwordEntries} />
+          <h2 className="text-gray-200 font-bold text-2xl ml-10 self-start">Passwords</h2>
           <DashboardTable
             deletedMethod={setDeleted}
             updatedMethod={setUpdated}

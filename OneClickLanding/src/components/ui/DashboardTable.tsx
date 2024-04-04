@@ -219,11 +219,11 @@ function DashboardTable(props: any) {
           deleted={props.deleted}
         ></PasswordDeleteDialog>
       </Modal>
-      <Sheet open={detail} key={passwordItem._id} onOpenChange={function(){setDetail(!detail)}}>
+      <Sheet open={detail} key={passwordItem._id} onOpenChange={function(){setDetail(!detail);setViewIcon(faEye); setShown(false)}}>
         <InfoSheet passwordItem={passwordItem} showPassword={showPassword} copyPassword={copyPassword} viewIcon={viewIcon} statusColor={statusColorMap[passwordItem.status]}></InfoSheet>
       </Sheet>
 
-      <Sheet open={edit} key={passwordItem._id + "2"} onOpenChange={function(){setEdit(!edit)}}>
+      <Sheet open={edit} key={passwordItem._id + "2"} onOpenChange={function(){setEdit(!edit);}}>
         <SheetContent>
           <SheetHeader>
             <div className="flex flex-row justify-between items-center mt-4">
