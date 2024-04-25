@@ -112,7 +112,7 @@ function DashboardTable(props: any) {
             size="sm"
             variant="flat"
             >
-            {cellValue}
+            {cellValue as React.ReactNode}
           </Chip>
 
         );
@@ -194,7 +194,7 @@ function DashboardTable(props: any) {
             >
               {(columnKey) => (
                 <TableCell className="text-white truncate max-w-64">
-                  {renderCell(item, columnKey)}
+                  {renderCell(item, columnKey) as React.ReactNode}
                 </TableCell>
               )}
             </TableRow>
