@@ -382,6 +382,7 @@ export async function getEntries():Promise<any[]>{
           }
           decryptedEntries.push(entryObj);
         })
+        await Promise.all(promises);
 
             
         

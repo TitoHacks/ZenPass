@@ -1,5 +1,3 @@
-import React from "react";
-import { WavyBackground } from "./wavy-background";
 import { redirectDashboard } from '@/utils/utils';
 
 const CustomNavbar = () => {

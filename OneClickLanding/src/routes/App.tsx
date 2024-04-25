@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { WavyBackground } from '../components/ui/wavy-background'
 import CustomNavbar from '../components/ui/custom-navbar'
 import HeaderContent from '../components/ui/header-content'

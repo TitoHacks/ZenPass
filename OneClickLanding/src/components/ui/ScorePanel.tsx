@@ -5,7 +5,7 @@ import { Badge} from "@nextui-org/react";
 import PasswordComponent from "./password-component";
 
 //Funcion que calcula la puntuacion total de seguridad.
-function calculateScore(statusData: Object): number {
+function calculateScore(statusData: any): number {
   let overallScore = 0;
   const safePoints = 4;
   const weakPoints = 2;
@@ -27,7 +27,7 @@ function calculateScore(statusData: Object): number {
 
 //Fucnion que, segun el score obtenido al calcularlo, devuelve un objeto con un texto y color, mostrando si la puntuacion obtenida es
 //baja, media o alta
-function getScoreText(score: number): Object {
+function getScoreText(score: number): any {
   let text = "";
   let color = "";
 

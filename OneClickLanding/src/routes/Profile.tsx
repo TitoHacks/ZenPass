@@ -10,7 +10,7 @@ import {
   ModalFooter,
 } from "@nextui-org/react";
 import { Modal } from "@nextui-org/react";
-import { deleteAllData, exportCSV, getEntries } from "@/utils/utils";
+import { deleteAllData, exportCSV } from "@/utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFileArrowDown,

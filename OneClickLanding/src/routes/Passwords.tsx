@@ -55,10 +55,10 @@ function Passwords() {
     iv: "",
     leakedInfo: [],
   });
+  passwordEntries.length;
   const [detail, setDetail] = useState(false);
   const [shown, setShown] = useState(false);
   const [viewIcon, setViewIcon] = useState<IconDefinition>(faEye);
-  console.log(passwordItem);
   //Funcion encargada de actualizar la lista de contraseñas segun open(Formulario de añadir), openCsv (Formulario de importar) y searched (Texto buscado)
   useEffect(() => {
     async function fetchData() {

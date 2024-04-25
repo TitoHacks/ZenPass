@@ -39,12 +39,10 @@ function CsvDialog() {
             <CSVReader
               parserOptions={parserOptions}
               accept=".csv"
-              onFileLoaded={function (data, fileInfo, originalFile) {
+              onFileLoaded={function (data) {
                 setVisible(true);
                 importPasswords(
                   data,
-                  fileInfo,
-                  originalFile,
                   setLoadValue,
                   onClose
                 );

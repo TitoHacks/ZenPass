@@ -301,8 +301,7 @@ function DashboardTable(props: any) {
                     .value!,
                   (document.getElementById("titleInput") as HTMLInputElement)
                     .value!,
-                  passwordItem,
-                  props.updatedMethod
+                  passwordItem
                 );
                 props.updatedMethod(!props.updated);
               }}
