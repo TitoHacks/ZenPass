@@ -1,7 +1,5 @@
-import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {Card, CardHeader, CardBody, CardFooter, Button} from "@nextui-org/react";
-import {Image} from "@nextui-org/react";
+import {Card, CardHeader, CardBody} from "@nextui-org/react";
 
 function FeatureCard(props:any){
     

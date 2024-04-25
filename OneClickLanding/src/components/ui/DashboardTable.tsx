@@ -16,7 +16,6 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   IconDefinition,
-  faCopy,
   faEye,
   faEyeSlash,
   faFloppyDisk,
@@ -27,18 +26,13 @@ import { Button } from "@nextui-org/react";
 import PasswordDeleteDialog from "./password-delete-dialog";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 import { Label } from "@radix-ui/react-label";
 import { Progress } from "@nextui-org/react";
 import { Divider } from "@nextui-org/react";
-import LeakComponent from "./leakComponent";
 import { toast } from "sonner";
 import { Image } from "@nextui-org/react";
 import { editData } from "@/utils/utils";

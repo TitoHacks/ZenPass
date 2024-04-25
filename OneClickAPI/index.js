@@ -4,9 +4,16 @@ const mongoose = require("mongoose");
 const PORT = 8083;
 const userRoutes = require("./routes/users");
 const entryRoutes = require("./routes/entries");
+const corsOptions = {
+    origin: "https://zenpassmanager.onrender.com",
+}
+
 app.use(express.json());
 app.use("/api",userRoutes)
 app.use("/api/entry",entryRoutes)
+app.use(cors(corsOptions));
+
+
 
 //CONNECT TO MONGO DB
 mongoose.set("strictQuery",false)

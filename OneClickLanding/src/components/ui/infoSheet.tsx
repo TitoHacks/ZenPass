@@ -1,17 +1,11 @@
-import { useState } from 'react'
-import { checkExistingLeaked } from '@/utils/utils'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo, faCopy, faMagnifyingGlassChart } from '@fortawesome/free-solid-svg-icons'
-import { Button,  Chip, ChipProps, Divider, } from '@nextui-org/react'
+import { faCopy } from '@fortawesome/free-solid-svg-icons'
+import { Button,  Chip, Divider, } from '@nextui-org/react'
 import {
-    Sheet,
-    SheetClose,
     SheetContent,
     SheetDescription,
-    SheetFooter,
     SheetHeader,
     SheetTitle,
-    SheetTrigger,
   } from "@/components/ui/sheet";
 import { Image } from "@nextui-org/react";
 import { Label } from "@radix-ui/react-label";

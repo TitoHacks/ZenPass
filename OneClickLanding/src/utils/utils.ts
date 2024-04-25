@@ -29,7 +29,7 @@ export function hashPassword(password:string):string{
 //Metodo que recive una contrasñea y un hash, para determinar si coinciden.
 export function matchesPassword(password:string, hashedPassword:string):boolean{
     bcrypt.compare(password,hashedPassword,function(err,isMatch){
-        if(isMatch){
+        if(isMatch && !err){
             return true;
         }
     });
@@ -185,7 +185,7 @@ export async function exportCSV(setLoadingExport:any){
 }
 
 //Metodo que recive los valores actualizados de una credencial y la credencial antigua, para posteriormente actualizar en bd.
-export async function editData(userInput:string, passwordInput:string, urlInput:string, titleInput:string, entryObj:Entry, setUpdated:any){
+export async function editData(userInput:string, passwordInput:string, urlInput:string, titleInput:string, entryObj:Entry){
   console.log("username: " + userInput + ", password: " + passwordInput + ", url: " + urlInput);
 
   entryObj.title = titleInput;
@@ -204,7 +204,7 @@ export async function editData(userInput:string, passwordInput:string, urlInput:
 }
 
 //Metodo que obtiene datos ya leidos de un archivo csv, y añade las correspondientes entradas a la bd utilizando el metodo storeEntry.
-export async function importPasswords(data:any, fileInfo:any, originalFile:any, setLoadValue:any, onClose:any){
+export async function importPasswords(data:any, setLoadValue:any, onClose:any){
 
   console.log(data);
   let csvKeys = Object.keys(data);
@@ -496,7 +496,12 @@ export async function sendMail(e:FormEvent){
     mode:'no-cors',
     body: data,
   })
+  if(response.status == 200){
+    toast.success("Message sent successfully");
+  }else{
+    toast.success("Error sending message");
+  }
 
-  toast.success("Message sent successfully");
+  
   
 }

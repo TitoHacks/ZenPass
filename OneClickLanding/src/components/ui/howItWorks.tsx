@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import FeatureCard from "./featureCard"
-import { faLock,faDatabase, faArrowsRotate,faChartColumn,faChartPie,faUserCheck,faUser,faPlus, faMagnifyingGlassChart, faKey } from "@fortawesome/free-solid-svg-icons"
+import { faChartColumn,faUser, faMagnifyingGlassChart, faKey } from "@fortawesome/free-solid-svg-icons"
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 

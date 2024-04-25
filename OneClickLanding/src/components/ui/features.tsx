@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import FeatureCard from "./featureCard"
 import { faLock,faDatabase, faArrowsRotate,faChartColumn,faChartPie,faUserCheck } from "@fortawesome/free-solid-svg-icons"
 

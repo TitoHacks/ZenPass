@@ -1,5 +1,4 @@
-import React from 'react'
-import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, User} from "@nextui-org/react";
+import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar} from "@nextui-org/react";
 import { logout } from '@/utils/utils';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRightFromBracket, faGear, faHouse, faLock, faVault} from "@fortawesome/free-solid-svg-icons";

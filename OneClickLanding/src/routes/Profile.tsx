@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SideNavbar from "@/components/ui/sideNavbar";
 import {
   Divider,
@@ -9,17 +9,14 @@ import {
   ModalBody,
   ModalFooter,
 } from "@nextui-org/react";
-import PasswordDialog from "@/components/ui/password-dialog";
 import { Modal } from "@nextui-org/react";
 import { deleteAllData, exportCSV, getEntries } from "@/utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faFile,
   faFileArrowDown,
   faFloppyDisk,
   faGear,
   faKey,
-  faPlus,
   faTrash,
   faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";

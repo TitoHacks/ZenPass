@@ -17,8 +17,6 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { storeDerivateKey } from "@/utils/utils";
 import { MultiStepLoader as Loader } from "../components/ui/multi-step-loader";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 
 const formSchema = z.object({
   email: z.string().min(7, {
@@ -75,7 +73,7 @@ function Login() {
         let dataJson = await response.json();
 
         storeDerivateKey(userObj.password, "hola", 100000)
-          .then((result) => {
+          .then(() => {
             sessionStorage.setItem("PassnovaUID", dataJson["_id"]);
             sessionStorage.setItem("username", dataJson["username"]);
             toast.success("Welcome " + dataJson["username"]);

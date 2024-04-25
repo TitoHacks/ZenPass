@@ -10,7 +10,6 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
 };
 
 function PasswordComponent(props: any) {
-  let entryId = props.entryId;
   let favicon = props.favicon;
   let title = props.title;
   let url = props.url;

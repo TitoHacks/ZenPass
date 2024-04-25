@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { importPasswords, storeEntry } from "@/utils/utils";
+import { importPasswords} from "@/utils/utils";
 import {
   ModalContent,
   ModalHeader,
   ModalBody,
-  Button,
 } from "@nextui-org/react";
 import CSVReader from "react-csv-reader";
 import { Progress } from "@nextui-org/react";

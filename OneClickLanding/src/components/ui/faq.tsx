@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faLock,faDatabase, faArrowsRotate,faChartColumn,faChartPie,faUserCheck, faCircleQuestion } from "@fortawesome/free-solid-svg-icons"
+import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons"
 import {Accordion, AccordionItem} from "@nextui-org/react";
 import {Code} from "@nextui-org/react";
 

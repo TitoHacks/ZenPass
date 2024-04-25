@@ -1,6 +1,4 @@
 import { cn } from "@/utils/cn";
-import clsx from "clsx";
-import React from "react";
 
 export const Meteors = ({
   number,

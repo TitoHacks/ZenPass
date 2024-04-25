@@ -5,11 +5,7 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
-  Divider,
-  Chip,
   ChipProps,
-  Image,
-  Progress,
   Button,
 } from "@nextui-org/react";
 import PasswordDialog from "@/components/ui/password-dialog";
@@ -18,7 +14,6 @@ import { getEntries } from "@/utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   IconDefinition,
-  faCopy,
   faEye,
   faEyeSlash,
   faFile,
@@ -30,16 +25,7 @@ import PasswordComponent from "@/components/ui/password-component";
 import { Input } from "@nextui-org/react";
 import {
   Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
-import { Label } from "@radix-ui/react-label";
-import LeakComponent from "@/components/ui/leakComponent";
 import { toast } from "sonner";
 import InfoSheet from "@/components/ui/infoSheet";
 
