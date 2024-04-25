@@ -1,2 +1,3 @@
-/api/*  https://zenpass.onrender.com:8083/:splat  200
+/api/entry/* https://zenpass.onrender.com:8083/api/entry:splat  200
+/api/*  https://zenpass.onrender.com:8083/api/:splat  200
 /* /index.html 200
