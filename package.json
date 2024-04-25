@@ -15,5 +15,19 @@
   "devDependencies": {
     "@types/node-forge": "^1.3.11",
     "crypto-browserify": "^3.12.0"
-  }
+  },
+  "name": "zenpass",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "install-server": "cd OneClickAPI && npm install",
+    "start-server": "cd OneClickAPI && node .",
+    "install-client":"cd OneClickLanding && npm install",
+    "build-client":"cd OneClickLanding && npm run build",
+    "start-client":"cd OneClickLanding && npm run start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

@@ -42,16 +42,16 @@ const CustomNavbar = () => {
           </button>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          <a href="#" className="text-sm font-semibold leading-6 text-white">
+          <a href="/" className="text-sm font-semibold leading-6 text-white">
             Home
           </a>
-          <a href="#features" className="text-sm font-semibold leading-6 text-white">
+          <a href="/#features" className="text-sm font-semibold leading-6 text-white">
             Features
           </a>
-          <a href="#howitworks" className="text-sm font-semibold leading-6 text-white">
+          <a href="/#howitworks" className="text-sm font-semibold leading-6 text-white">
             How it works
           </a>
-          <a href="#faq" className="text-sm font-semibold leading-6 text-white">
+          <a href="/#faq" className="text-sm font-semibold leading-6 text-white">
             FAQ
           </a>
         </div>
