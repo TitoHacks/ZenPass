@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const PORT = 8083;
 const userRoutes = require("./routes/users");
 const entryRoutes = require("./routes/entries");
+const cors = require("cors");
 const corsOptions = {
     origin: "https://662a1359b9fcdb76622db3a2--singular-clafoutis-9f2adf.netlify.app/",
 }
