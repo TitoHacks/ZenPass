@@ -6,7 +6,7 @@ const userRoutes = require("./routes/users");
 const entryRoutes = require("./routes/entries");
 const cors = require("cors");
 const corsOptions = {
-    origin: "https://662a2a3076d0fe8cd9817d63--comfy-crisp-49ac44.netlify.app/",
+    origin: "https://zenpassmanager.onrender.com",
 }
 
 app.use(express.json());
