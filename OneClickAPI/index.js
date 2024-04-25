@@ -6,7 +6,7 @@ const userRoutes = require("./routes/users");
 const entryRoutes = require("./routes/entries");
 const cors = require("cors");
 const corsOptions = {
-    origin: "https://662a1359b9fcdb76622db3a2--singular-clafoutis-9f2adf.netlify.app/",
+    origin: "https://662a27d77dc47481965fd914--delightful-kheer-399442.netlify.app/",
 }
 
 app.use(express.json());

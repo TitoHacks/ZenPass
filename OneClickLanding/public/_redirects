@@ -1,0 +1,2 @@
+/api/*  https://zenpass.onrender.com:8083/:splat  200
+/* /index.html 200
