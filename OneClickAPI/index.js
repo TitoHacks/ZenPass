@@ -5,7 +5,7 @@ const PORT = 8083;
 const userRoutes = require("./routes/users");
 const entryRoutes = require("./routes/entries");
 const corsOptions = {
-    origin: "https://zenpassmanager.onrender.com",
+    origin: "https://662a1359b9fcdb76622db3a2--singular-clafoutis-9f2adf.netlify.app/",
 }
 
 app.use(express.json());
