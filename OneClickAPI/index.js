@@ -20,7 +20,7 @@ app.use(cors(corsOptions));
 //CONNECT TO MONGO DB
 mongoose.set("strictQuery",false)
 
-mongoose.connect(proccess.env.REACT_APP_DB_CONNECTION_STRING).then(()=>{
+mongoose.connect(process.env.REACT_APP_DB_CONNECTION_STRING).then(()=>{
     console.log("Base de datos conectada!");
 }).catch((error)=>{
     console.log("Error al conectar con la base de datos : " + error);
