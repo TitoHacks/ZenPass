@@ -103,7 +103,7 @@ function Login() {
         waveOpacity={0.6}
         blur={20}
       >
-        <div className="w-screen flex flex-row justify-evenly rounded-lg items-center">
+        <div className="w-screen flex flex-row justify-evenly rounded-lg items-center text-white">
           <Loader
             loadingStates={loadingStates}
             loading={loading}
