@@ -1,9 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faPaperPlane  } from "@fortawesome/free-solid-svg-icons"
-import { Button, Divider } from "@nextui-org/react"
-import {Input} from "@nextui-org/react";
-import {Textarea} from "@nextui-org/react";
-import { sendMail } from "@/utils/utils";
+import { faEnvelope  } from "@fortawesome/free-solid-svg-icons"
+import { Divider } from "@nextui-org/react"
 
 
 
@@ -36,11 +33,7 @@ const Footer = () => {
           </div>
           <div className="flex flex-col justify-start w-1/4">
               <h2 className="text-lg text-gray-200">Contact us</h2>
-              <form onSubmit={(event)=>sendMail(event)}>
-                <Input id='emailText' isRequired={true} type="email"  className="mb-4" label="email" placeholder="Example@example.com"></Input>
-                <Textarea id='messageText' isRequired={true} className="mb-4" label="Message" placeholder="Enter your message"></Textarea>
-                <Button type="submit"  variant="flat" color="default" startContent={<FontAwesomeIcon icon={faPaperPlane} />}>Send</Button>
-              </form>
+              <a href="mailto:zenpassmail@gmail.com"><FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon> zenpassmail@gmail.com</a>
           </div>
         </div>
         

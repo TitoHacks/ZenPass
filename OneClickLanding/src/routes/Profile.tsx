@@ -19,6 +19,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Accordion, AccordionItem } from "@nextui-org/react";
 
+//Funcion encargada de eliminar los datos.
 async function handleDelete(onClose: any, setLoading: any) {
   setLoading(true);
   await deleteAllData();

@@ -21,7 +21,7 @@ import CsvDialog from "@/components/ui/csv-dialog";
 
 
 function Dashboard() {
-//Ver si el usuario tiene la sesion iniciada
+//Ver si el usuario tiene la sesion iniciada. Si no, se redirige a /login.
 
   if(sessionStorage.getItem("PassnovaUID") == null || sessionStorage.getItem("derivatedKey") == null){
     window.location.href = "/login";

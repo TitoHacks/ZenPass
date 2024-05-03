@@ -56,6 +56,9 @@ function Login() {
     },
   });
 
+  //Funcion encargada de gestionar el login. Se hace una peticion post al endpoint /api/login, enviando el objeto User.
+  //En caso de que las credenciales coincidan, se genera una clave maestra derivada de la contraseña del usuario, que es almacenada
+  //en el sessionStorage, junto al nombre de usuario y el id, redirigiendo a su vez a la pagina /dashboard. 
   function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
     let userObj = {

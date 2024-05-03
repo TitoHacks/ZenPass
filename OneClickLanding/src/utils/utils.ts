@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import { mkConfig, generateCsv, download } from "export-to-csv";
 import { FormEvent } from 'react';
 
+//Generar un vector de inicializacion aleatorio
 const ivKey = forge.random.getBytesSync(16);
 const csvConfig = mkConfig({ useKeysAsHeaders: true, filename: "ZenPass Passwords", quoteStrings:false });
 
@@ -20,7 +21,7 @@ export  function  redirectDashboard(){
   
 }
 
-
+//Metodo qu recive una contraseña, y la devuelve en forma de hash bcrypt.
 export function hashPassword(password:string):string{
 
     return bcrypt.hashSync(password,10);
@@ -248,7 +249,7 @@ export function getFavIcon(url:string, size:number):string{
 
 }
 
-//Metodo que recive un objeto Entry y actualiza la correspondiente entrada en BD, llamando a la api /entry/updateEntry en el backend.
+//Metodo que recive un objeto Entry y actualiza la correspondiente entrada en BD, llamando al endpoint /entry/updateEntry en el backend.
 export async function updateEntry(entry:Entry){
   let encryptedPassword = encrypt(entry.password);
   let passwordScore = getPasswordScore(entry.password!)
@@ -277,7 +278,7 @@ export async function updateEntry(entry:Entry){
 }
 
 
-//Metodo que recive un objeto credencial y realiza una llamada a la api /entry/checkLeak, para determinar si una credencial ha sido filtrada online.
+//Metodo que recive un objeto credencial y realiza una llamada al endpoint /entry/checkLeak, para determinar si una credencial ha sido filtrada online.
 //Como mucho se realizan 3 intentos.
 export async function checkLeaked(entry:any):Promise<any>{
   let retryCount = 0;
@@ -479,30 +480,4 @@ export function getStatusCount(passwordEntries:any[]):Status{
 
 
 }
-//La funcion obtiene los datos del formulario, y realiza una peticion post a un webhook alojado en un servidor privado con n8n (Herramienta de automatizacion)
-//El webhook obtiene los datos del formulario, y envia un correo al mail interno de zenpass (zenpassmail@gmail.com:ZenPassMail2024)
-export async function sendMail(e:FormEvent){
 
-  e.preventDefault();
-  let email = (document.getElementById("emailText") as HTMLInputElement).value;
-  let message = (document.getElementById("messageText") as HTMLInputElement).value;
-  let data = new FormData();
-  data.append("email",email);
-  data.append("message",message);
-  console.log(email);
-  console.log(message);
-
-  let response = await fetch("http://141.145.217.56:5678/webhook/79c1434a-b94e-474e-bd4e-6def3c77696f",{
-    method:'POST',
-    mode:'no-cors',
-    body: data,
-  })
-  if(response.status == 200){
-    toast.success("Message sent successfully");
-  }else{
-    toast.success("Error sending message");
-  }
-
-  
-  
-}

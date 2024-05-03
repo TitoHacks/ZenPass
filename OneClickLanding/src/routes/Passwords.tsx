@@ -59,6 +59,7 @@ function Passwords() {
   const [detail, setDetail] = useState(false);
   const [shown, setShown] = useState(false);
   const [viewIcon, setViewIcon] = useState<IconDefinition>(faEye);
+
   //Funcion encargada de actualizar la lista de contraseñas segun open(Formulario de añadir), openCsv (Formulario de importar) y searched (Texto buscado)
   useEffect(() => {
     async function fetchData() {
@@ -96,6 +97,7 @@ function Passwords() {
     fetchData();
   }, [open, openCsv, searched]);
 
+  //Funcion encargada de mostrar la contraseña almacenada
   function showPassword() {
     if (shown) {
       document
@@ -110,6 +112,7 @@ function Passwords() {
     }
   }
 
+  //Funcion que copia la contraseña almacenada al portapapeles
   function copyPassword() {
     let passwordElement = document.getElementById("entryPassword")!;
     navigator.clipboard.writeText(passwordElement.getAttribute("value")!);

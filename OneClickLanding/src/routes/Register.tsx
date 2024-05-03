@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { hashPassword } from "../utils/utils";
 import { toast } from "sonner";
 
+//Esquema utilizado para renderizar y validar los datos introducidos en el formulario
 const formSchema = z.object({
   email: z.string().min(7, {
     message: "Email must be at least 7 characters.",
@@ -39,6 +40,9 @@ function Register() {
     },
   });
 
+  //Funcion encargada de manejar el submit del formulario.
+  //La informacion se envia al backend mediante el endpoint /api/newUser
+  //Si el registro es correcto, se muestra un mensaje por pantalla y se redirige al usuario a /login
   function onSubmit(values: z.infer<typeof formSchema>) {
     let userObj = {
       email: values.email,
