@@ -116,7 +116,6 @@ export async function storeEntry(values:any, skipLeakCheck:boolean = false){
       let leak = await checkLeaked(values);
       if(leak.length > 0){
         leakInfo = await getLeakedInfo(leak[0]["Name"]);
-        console.log(leakInfo);
       }
     }
 
@@ -186,7 +185,6 @@ export async function exportCSV(setLoadingExport:any){
 
 //Metodo que recive los valores actualizados de una credencial y la credencial antigua, para posteriormente actualizar en bd.
 export async function editData(userInput:string, passwordInput:string, urlInput:string, titleInput:string, entryObj:Entry){
-  console.log("username: " + userInput + ", password: " + passwordInput + ", url: " + urlInput);
 
   entryObj.title = titleInput;
   entryObj.username = userInput;
@@ -206,7 +204,6 @@ export async function editData(userInput:string, passwordInput:string, urlInput:
 //Metodo que obtiene datos ya leidos de un archivo csv, y añade las correspondientes entradas a la bd utilizando el metodo storeEntry.
 export async function importPasswords(data:any, setLoadValue:any, onClose:any){
 
-  console.log(data);
   let csvKeys = Object.keys(data);
 
   for(let i = 0; i < csvKeys.length; i++){
@@ -223,7 +220,6 @@ export async function importPasswords(data:any, setLoadValue:any, onClose:any){
    if(serverData.status ==500){
       toast.error("Error importing credentials");
    }
-   console.log("Progreso Actual: " + (i+1) * 100 / csvKeys.length + "%")
    setLoadValue((i+1) * 100 / csvKeys.length);
   }
   onClose();
@@ -252,7 +248,6 @@ export function getFavIcon(url:string, size:number):string{
 export async function updateEntry(entry:Entry){
   let encryptedPassword = encrypt(entry.password);
   let passwordScore = getPasswordScore(entry.password!)
-  console.log("Id:" + entry._id);
   let encryptedEntry = {
       _id:entry._id,
       title: encrypt(entry.title),
@@ -283,14 +278,12 @@ export async function checkLeaked(entry:any):Promise<any>{
   let retryCount = 0;
   while(retryCount < 3){
     let leaks = await fetch("/api/entry/checkLeak?email=" + entry.username + "&domain="+getRootDomain(entry.url) + "&timestamp=" + new Date().getTime());
-    console.log(leaks);
     if(leaks.status == 200){
       return await leaks.json();
     }else if(leaks.status == 300){
       return {};
     }else if(leaks.status == 301){
       let data = await leaks.json();
-      console.log("Retrying after " + (data["retry"] + 2) + "seconds");
       await new Promise(resolve => setTimeout(resolve,(data["retry"] + 10) * 1000));
       retryCount++;
     }
