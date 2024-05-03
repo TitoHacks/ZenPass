@@ -21,6 +21,12 @@ import CsvDialog from "@/components/ui/csv-dialog";
 
 
 function Dashboard() {
+//Ver si el usuario tiene la sesion iniciada
+
+  if(sessionStorage.getItem("PassnovaUID") == null || sessionStorage.getItem("derivatedKey") == null){
+    window.location.href = "/login";
+  }
+
   const [open, setOpen] = useState(false);
   const [openCsv, setOpenCsv] = useState(false);
   const [deleted, setDeleted] = useState(false);

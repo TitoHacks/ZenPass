@@ -123,7 +123,7 @@ function Passwords() {
         <div className="ml-40 pt-12 h-full w-full flex flex-col items-center ">
           <div className="self-start flex flex-row n w-2/4 justify-between pb-4">
             <h1 className="text-gray-200 font-bold text-2xl ml-10 self-start">
-              Credentials
+              Passwords
             </h1>
             <Input
               id="searchBar"
