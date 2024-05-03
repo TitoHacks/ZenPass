@@ -10,7 +10,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Checkbox } from "@/components/ui/checkbox";
 import { storeEntry } from "@/utils/utils";
 import { Input } from "@/components/ui/input";
 import {

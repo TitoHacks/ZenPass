@@ -1,7 +1,7 @@
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar} from "@nextui-org/react";
 import { logout } from '@/utils/utils';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRightFromBracket, faGear, faHouse, faLock, faVault} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRightFromBracket, faGear, faHouse, faLock} from "@fortawesome/free-solid-svg-icons";
 import {Divider} from "@nextui-org/react";
 
 

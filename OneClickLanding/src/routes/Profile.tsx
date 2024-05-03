@@ -2,7 +2,6 @@ import { useState } from "react";
 import SideNavbar from "@/components/ui/sideNavbar";
 import {
   Divider,
-  Input,
   Button,
   ModalContent,
   ModalHeader,
@@ -14,9 +13,7 @@ import { deleteAllData, exportCSV } from "@/utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFileArrowDown,
-  faFloppyDisk,
   faGear,
-  faKey,
   faTrash,
   faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
