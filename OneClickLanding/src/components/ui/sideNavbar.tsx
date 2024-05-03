@@ -10,7 +10,7 @@ let username = sessionStorage.getItem("username");
 
 const SideNavbar = () => {
 
-let avatarUrl = "https://api.dicebear.com/8.x/pixel-art/jpg?seed=" + username;
+let avatarUrl = "https://api.dicebear.com/8.x/bottts-neutral/jpg?seed=" + username;
 
   return (
     <nav className='absolute top-0 left-0 bg-backgroundColorDark h-screen px-6 w-1/8'>
