@@ -17,15 +17,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile, faPlus } from "@fortawesome/free-solid-svg-icons";
 import CsvDialog from "@/components/ui/csv-dialog";
 
+
+
+
+function Dashboard() {
+
 //Ver si el usuario tiene la sesion iniciada. Si no, se redirige a /login.
 
 if(sessionStorage.getItem("PassnovaUID") == null || sessionStorage.getItem("derivatedKey") == null){
   window.location.href = "/login";
 }
-
-
-function Dashboard() {
-
 
   const [open, setOpen] = useState(false);
   const [openCsv, setOpenCsv] = useState(false);
