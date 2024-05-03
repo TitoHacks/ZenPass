@@ -28,15 +28,9 @@ mongoose.connect(process.env.REACT_APP_DB_CONNECTION_STRING).then(()=>{
 /////////////////////
 
 
-
-
 app.get("/api/test",(request,response)=>{
     response.json({hola:"maquina"})
 })
-
-
-
-
 
 app.listen(PORT,()=> console.log(`Sirviendo en http://localhost:${PORT}`));
 

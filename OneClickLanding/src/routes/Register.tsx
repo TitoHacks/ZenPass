@@ -73,7 +73,7 @@ function Register() {
         waveOpacity={0.6}
         blur={20}
       >
-        <div className="w-screen flex flex-row justify-evenly rounded-lg items-center">
+        <div className="w-screen flex flex-row justify-evenly rounded-lg items-center text-white">
           <Form {...registerForm}>
             <form
               onSubmit={registerForm.handleSubmit(onSubmit)}

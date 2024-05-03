@@ -38,7 +38,6 @@ function PasswordDialog() {
     url: z.string().min(3, {
       message: "Url must be at least 3 characters.",
     }),
-    isWeb: z.boolean(),
   });
 
   const passwordForm = useForm<z.infer<typeof formSchema>>({
@@ -48,7 +47,6 @@ function PasswordDialog() {
       username: "",
       password: "",
       url: "",
-      isWeb: true,
     },
   });
 
@@ -62,7 +60,6 @@ function PasswordDialog() {
       username: values.username,
       password: values.password,
       url: values.url,
-      isWeb: values.isWeb,
     };
     let entryMsg = await (await storeEntry(passwordObj)).text();
     toast.success(entryMsg);
@@ -149,22 +146,6 @@ function PasswordDialog() {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={passwordForm.control}
-                  name="isWeb"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        ></Checkbox>
-                      </FormControl>
-                      <FormLabel> Is Web?</FormLabel>
                       <FormMessage />
                     </FormItem>
                   )}

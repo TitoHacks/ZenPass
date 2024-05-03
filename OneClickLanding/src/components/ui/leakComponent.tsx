@@ -55,7 +55,7 @@ function LeakComponent(props:any){
   return (
     <div className='flex flex-col justify-start'>
         <p className='text-lg'>No data leaks found for this account</p>
-        <Button variant='flat' color='warning' isLoading={loading} onClick={async function(){setLoading(true);await checkExistingLeaked(props.entry); setLoading(false)}}><FontAwesomeIcon icon={faMagnifyingGlassChart} /> Request analisys</Button>
+        <Button variant='flat' color='warning' isLoading={loading} onClick={async function(){setLoading(true);await checkExistingLeaked(props.entry); setLoading(false)}}><FontAwesomeIcon icon={faMagnifyingGlassChart} /> Request analysis</Button>
                 
     </div>
     

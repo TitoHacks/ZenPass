@@ -35,7 +35,7 @@ router.post("/login",async(request,response)=>{
                 response.status(401).send("Incorrect username / password combination");
             }
         }else{
-            response.status(401).send("User not founc");
+            response.status(401).send("User not found");
         }
     }catch(error){
         console.log(error);

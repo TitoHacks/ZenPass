@@ -45,27 +45,11 @@ function Profile() {
           <div className="self-start ml-10 w-full">
             <Divider className="my-1 bg-accentColorText " />
             <Accordion className="py-4">
-              <AccordionItem
-                className="text-white text-lg"
-                key="1"
-                title="Password Generator"
-                indicator={<FontAwesomeIcon icon={faKey} />}
-              >
-                <div className="py-4 flex flex-row justify-between ">
-                  <label className="text-gray-300">
-                    Character count
-                  </label>
-                  <Input type="number" className="w-2/4"></Input>
-                </div>
-                <div className="py-4 flex flex-row justify-between ">
-                  <label className="text-gray-300">Caracteristicas</label>
-                  <Input type="number" className="w-2/4"></Input>
-                </div>
-              </AccordionItem>
+              
               <AccordionItem
                 className="text-white text-lg"
                 key="2"
-                title="Other settings"
+                title="User data"
                 indicator={<FontAwesomeIcon icon={faGear} />}
               >
                 <div className="py-4 flex flex-row justify-between ">
@@ -92,12 +76,6 @@ function Profile() {
                 disableIndicatorAnimation={true}
               >
                 <div className="py-4 flex flex-row justify-between ">
-                  <label className="text-gray-300">
-                    Cantidad de caracteres
-                  </label>
-                  <Input type="number" className="w-2/4"></Input>
-                </div>
-                <div className="py-4 flex flex-row justify-between ">
                   <label className="text-gray-300">Delete data</label>
                   <Button
                     variant="flat"
@@ -112,11 +90,6 @@ function Profile() {
                 </div>
               </AccordionItem>
             </Accordion>
-            <div className="w-full flex flex-row justify-end">
-              <Button variant="flat" color="success" className="mr-2" startContent={<FontAwesomeIcon icon={faFloppyDisk} />}>
-                Save changes
-              </Button>
-            </div>
           </div>
         </div>
         <Modal

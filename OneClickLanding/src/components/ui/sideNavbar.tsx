@@ -21,7 +21,6 @@ const SideNavbar = () => {
         <Divider className="my-1 bg-accentColorText " />
         <li className='group w-full hover:cursor-pointer'><a href="/Dashboard" className='transition-all font-semibold ease-in-out duration-150 delay-100 text-white group-hover:text-accentColor'><FontAwesomeIcon icon={faHouse} /> Home</a></li>
         <li className='group w-full hover:cursor-pointer'><a href="/Passwords" className='transition-all font-semibold ease-in-out duration-150 delay-100 text-white group-hover:text-accentColor'><FontAwesomeIcon icon={faLock} /> Passwords</a></li>
-        <li className='group w-full hover:cursor-pointer'><a href="/Vault" className='transition-all font-semibold ease-in-out duration-150 delay-100 text-white group-hover:text-accentColor'><FontAwesomeIcon icon={faVault} /> Secure Vault</a></li>
         <Divider className="my-1 bg-accentColorText " />
         <p className='text-sm text-gray-400 font-semibold'>Account</p>
         <li>
