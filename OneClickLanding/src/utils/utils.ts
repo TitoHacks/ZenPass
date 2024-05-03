@@ -4,7 +4,6 @@ import { passwordStrength } from 'check-password-strength'
 import getRootDomain from 'get-root-domain';
 import { toast } from 'sonner';
 import { mkConfig, generateCsv, download } from "export-to-csv";
-import { FormEvent } from 'react';
 
 //Generar un vector de inicializacion aleatorio
 const ivKey = forge.random.getBytesSync(16);
