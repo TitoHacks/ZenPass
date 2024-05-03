@@ -12,7 +12,7 @@ const Footer = () => {
        <Divider className="bg-accentColorText" />
       <div id="footer" className="py-4 flex flex-row justify-between bg-black dark px-28">
         <div className="flex flex-col justify-start items-center">
-          <a href="#"><img src="public/zenpass-favicon-color.png"></img></a>
+          <a href="#"><img src="zenpass-favicon-color.png"></img></a>
           <h2 className="font-bold text-gray-400 text-xl">ZenPass</h2>
         </div>
         

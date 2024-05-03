@@ -10,14 +10,14 @@ let username = sessionStorage.getItem("username");
 
 const SideNavbar = () => {
 
-
+let avatarUrl = "https://api.dicebear.com/8.x/pixel-art/jpg?seed=" + username;
 
   return (
     <nav className='absolute top-0 left-0 bg-backgroundColorDark h-screen px-6 w-1/8'>
 
       <ul className='flex flex-col justify-evenly items-start h-full'>
       
-        <li className='w-full'><a href="/Dashboard"><img src="/public/zenpass-favicon-color.png" className='w-min'></img></a></li>
+        <li className='w-full'><a href="/Dashboard"><img src="zenpass-favicon-color.png" className='w-min'></img></a></li>
         <Divider className="my-1 bg-accentColorText " />
         <li className='group w-full hover:cursor-pointer'><a href="/Dashboard" className='transition-all font-semibold ease-in-out duration-150 delay-100 text-white group-hover:text-accentColor'><FontAwesomeIcon icon={faHouse} /> Home</a></li>
         <li className='group w-full hover:cursor-pointer'><a href="/Passwords" className='transition-all font-semibold ease-in-out duration-150 delay-100 text-white group-hover:text-accentColor'><FontAwesomeIcon icon={faLock} /> Passwords</a></li>
@@ -31,7 +31,7 @@ const SideNavbar = () => {
                 isBordered
                 as="button"
                 className="transition-transform"
-                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                src={avatarUrl}
               />
               <p className=' ml-4 text-sm text-gray-400 font-bold '>{username}</p>
               </div>
