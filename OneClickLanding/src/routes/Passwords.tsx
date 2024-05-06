@@ -37,6 +37,13 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
 };
 
 function Passwords() {
+
+//Ver si el usuario tiene la sesion iniciada. Si no, se redirige a /login.
+
+if(sessionStorage.getItem("PassnovaUID") == null || sessionStorage.getItem("derivatedKey") == null){
+  window.location.href = "/login";
+}
+
   const [open, setOpen] = useState(false);
   const [openCsv, setOpenCsv] = useState(false);
   const [passwordEntries, setPasswordEntries] = useState<JSX.Element[]>([]);
@@ -124,14 +131,14 @@ function Passwords() {
       <SideNavbar></SideNavbar>
       <div className="flex flex-row justify-between h-screen bg-backgroundColor w-full dark">
         <div className="ml-40 pt-12 h-full w-full flex flex-col items-center ">
-          <div className="self-start flex flex-row n w-2/4 justify-between pb-4">
+          <div className="self-start flex flex-row n w-full justify-between pb-4 lg:w-2/4 sm:w-full">
             <h1 className="text-gray-200 font-bold text-2xl ml-10 self-start">
               Passwords
             </h1>
             <Input
               id="searchBar"
               label="Search"
-              className="w-2/4 text-white"
+              className=" mr-4 w-2/4 text-white lg:mr-0"
               variant="flat"
               color="default"
               onKeyUp={function () {
@@ -143,11 +150,11 @@ function Passwords() {
             />
           </div>
 
-          <div className="w-6/12 pt-4 h-full overflow-y-auto self-start flex flex-col items-center justify-start">
+          <div className="w-full pt-4 h-full overflow-y-auto self-start flex flex-col items-center justify-start md:w-full sm:w-full lg:w-6/12 xl:w-6/12 2xl:w-6/12 ">
             {filteredEntries}
           </div>
         </div>
-        <div className="absolute bottom-4 right-4">
+        <div className="fixed bottom-4 right-4">
           <Dropdown backdrop="blur">
             <DropdownTrigger>
               <Button variant="flat" isIconOnly={true}>

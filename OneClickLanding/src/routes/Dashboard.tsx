@@ -53,7 +53,7 @@ if(sessionStorage.getItem("PassnovaUID") == null || sessionStorage.getItem("deri
       <SideNavbar></SideNavbar>
       <div className="ml-6 flex flex-row justify-between h-full bg-backgroundColor w-9/12 dark">
         <ScorePanel passwordEntries={passwordEntries}></ScorePanel>
-        <div className="ml-32 py-12 h-screen w-10/12 flex flex-col items-center">
+        <div className="ml-32 py-12 h-full w-10/12 flex flex-col items-center">
           <h1 className="text-gray-200 font-bold text-2xl ml-10 self-start">
             Welcome{" "}
             <span className="text-accentColor">
@@ -70,7 +70,7 @@ if(sessionStorage.getItem("PassnovaUID") == null || sessionStorage.getItem("deri
             deleted={deleted}
           />
         </div>
-        <div className="absolute bottom-4 right-4">
+        <div className="fixed bottom-4 right-4">
           <Dropdown backdrop="blur">
             <DropdownTrigger>
               <Button variant="flat" isIconOnly={true}>

@@ -23,16 +23,26 @@ router.post("/newEntry",async(request,response)=>{
 
 router.get("/getEntries", async(request,response)=>{
         console.log(request.query);
-        const entries = await Entry.find({ownerId:request.query.passnovaUID});
-        response.status(200).send(entries);
+        try{
+            const entries = await Entry.find({ownerId:request.query.passnovaUID});
+            response.status(200).send(entries);
+        }catch{
+            response.status(500).send("User is not logged in");
+        }
+        
 })
 
 router.get("/isReused", async(request,response)=>{
-    const entries = await Entry.find({password:request.query.password});
-    if(entries.length > 0 ){
-        response.status(200).send("{reused:true}");
+    try{
+        const entries = await Entry.find({password:request.query.password});
+        if(entries.length > 0 ){
+            response.status(200).send("{reused:true}");
+        }
+        response.status(200).send("{reused:false}");
+    }catch{
+        response.status(500).send("User is not logged in");
     }
-    response.status(200).send("{reused:false}");
+    
 })
 
 

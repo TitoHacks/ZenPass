@@ -67,7 +67,7 @@ function ScorePanel(props: any) {
   });
 
   return (
-    <div className=" absolute top-0 right-0 h-full flex flex-col w-3/12 justify-start items-start bg-backgroundColor p-4">
+    <div className=" fixed top-0 right-0 h-full flex flex-col w-3/12 justify-start items-start bg-backgroundColor p-4">
       <h2 className="text-white font-bold text-2xl p-4">
         Overall Security Score
       </h2>
@@ -82,6 +82,7 @@ function ScorePanel(props: any) {
         >
           <div className=" h-full w-full rounded-full flex flex-row justify-center items-center">
             <CircularProgressbar
+            className="max-h-[250px]"
               value={score}
               text={score.toString() + "%" }
               strokeWidth={7}

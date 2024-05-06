@@ -17,7 +17,7 @@ const CustomNavbar = () => {
             />
           </a>
         </div>
-        <div className="lg:flex lg:gap-x-12">
+        <div className="lg:flex lg:gap-x-12 flex gap-x-12">
           <a href="/" className="text-sm font-semibold leading-6 text-white">
             Home
           </a>

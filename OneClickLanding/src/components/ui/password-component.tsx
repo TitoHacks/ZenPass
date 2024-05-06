@@ -23,10 +23,10 @@ function PasswordComponent(props: any) {
         props.setDetail(true);
       }}
     >
-      <Image src={favicon} className="w-10 h-max"></Image>
+      <Image src={favicon} className="w-4 h-max lg:w-10 md:w-8 sm:w-4"></Image>
       <div className="flex flex-col">
-        <h2 className="text-white truncate font-bold max-w-44">{title}</h2>
-        <p className="text-gray-500 max-w-44 truncate">{url}</p>
+        <h2 className="text-white truncate font-bold max-w-44 text-xs lg:text-base md:text-sm sm:text-xs">{title}</h2>
+        <p className="text-gray-500 max-w-44 truncate text-xs lg:text-base md:text-sm sm:text-xs">{url}</p>
       </div>
       <Chip
         className="capitalize self-start"

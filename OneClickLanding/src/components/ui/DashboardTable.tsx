@@ -146,7 +146,7 @@ function DashboardTable(props: any) {
   }, []);
 
   return (
-    <div className=" my-12 rounded-2xl flex  flex-row w-11/12 justify-evenly items-center bg-backgroundSecondary p-4">
+    <div className="my-12 rounded-2xl flex  flex-row w-11/12 justify-evenly items-center bg-backgroundSecondary p-4">
       <Table
         aria-label="Example table with client side pagination"
         bottomContent={

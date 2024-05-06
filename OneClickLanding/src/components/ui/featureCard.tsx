@@ -7,7 +7,7 @@ function FeatureCard(props:any){
 
   return (
     
-    <Card className="my-4 py-4 mx-4 w-1/4 bg-backgroundColorDark hover:bg-backgroundColor">
+    <Card className="my-4 py-4 mx-4 w-full lg:w-1/4 bg-backgroundColorDark hover:bg-backgroundColor">
     <CardHeader className="pb-0 pt-2 px-4 flex-row justify-start">
       <FontAwesomeIcon size="xl" icon={props.icon} className="px-2"></FontAwesomeIcon>
       <div className="flex-col items-start ml-4">

@@ -9,7 +9,7 @@ const Features = () => {
   return (
     <div id="features" className="pb-64 flex flex-col items-center bg-black">
       <h2 className="text-gray-300 font-semibold">Features</h2>
-      <div className='flex flex-row flex-wrap justify-evenly dark p-4'>
+      <div className='flex lg:flex-row flex-col flex-wrap justify-evenly dark p-4'>
        <FeatureCard featureTitle="End to end encryption "  category="Security" icon={faLock} description="ZenPass uses a military grade End to end encryption system, guaranteeing your data protection. Even if an attacker breached our sistems, it would be imposible to decrypt it."></FeatureCard>
        <FeatureCard featureTitle="Data leak monitoring sistem"  category="Security" icon={faDatabase} description="Our application implements 'Have I Been Pwned', an advanced data leak monitoring software, giving you relevant up to date security information. "></FeatureCard>
        <FeatureCard featureTitle="Password generator"  category="Security" icon={faArrowsRotate} description="Ensure your passwords are strong with our advanced easy to use password generator. Generate passwords at your will with our customization feature."></FeatureCard>

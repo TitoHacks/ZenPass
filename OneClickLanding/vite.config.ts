@@ -7,7 +7,7 @@ export default defineConfig({
   server:{
     proxy: {
       "/api": {
-        target: "https://zenpass.onrender.com:8083",
+        target: "https://zenpass.onrender.com",
         secure: false,
       },
     },

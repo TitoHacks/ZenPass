@@ -101,7 +101,7 @@ function Login() {
     <>
       <CustomNavbar></CustomNavbar>
       <WavyBackground
-        className="max-w-4xl mx-auto pb-40 flex flex-row dark"
+        className="max-w-4xl mx-auto flex flex-row dark"
         colors={["#f9769d", "#171821", "#21222d"]}
         waveOpacity={0.6}
         blur={20}
