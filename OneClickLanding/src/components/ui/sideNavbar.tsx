@@ -24,7 +24,7 @@ let avatarUrl = "https://api.dicebear.com/8.x/bottts-neutral/jpg?seed=" + userna
         <Divider className="my-1 bg-accentColorText " />
         <p className='text-sm text-gray-400 font-semibold'>Account</p>
         <li>
-          <Dropdown placement="right" backdrop='blur' >
+          <Dropdown placement="right" backdrop='opaque' >
             <DropdownTrigger>
               <div className='w-full flex flex-row justify-evenly items-center hover:cursor-pointer'>
               <Avatar

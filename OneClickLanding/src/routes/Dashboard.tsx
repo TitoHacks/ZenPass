@@ -71,7 +71,7 @@ if(sessionStorage.getItem("PassnovaUID") == null || sessionStorage.getItem("deri
           />
         </div>
         <div className="fixed bottom-4 right-4">
-          <Dropdown backdrop="blur">
+          <Dropdown backdrop="opaque">
             <DropdownTrigger>
               <Button variant="flat" isIconOnly={true}>
                 +
